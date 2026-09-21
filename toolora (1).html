@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Toolora — All-in-One Tools</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    min-height:100vh;
+    color:#fff;
+    background:#05050b;
+    overflow-x:hidden;
+}
+
+/* Animated background */
+body::before,
+body::after{
+    content:"";
+    position:fixed;
+    width:420px;
+    height:420px;
+    border-radius:50%;
+    filter:blur(100px);
+    opacity:.35;
+    z-index:-2;
+    animation:float 9s infinite alternate ease-in-out;
+}
+
+body::before{
+    background:#7c3cff;
+    top:-120px;
+    left:-100px;
+}
+
+body::after{
+    background:#00d9ff;
+    right:-120px;
+    bottom:-120px;
+    animation-delay:2s;
+}
+
+@keyframes float{
+    from{transform:translate(0,0) scale(1);}
+    to{transform:translate(80px,50px) scale(1.25);}
+}
+
+/* Header */
+header{
+    width:100%;
+    padding:18px 7%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-bottom:1px solid rgba(255,255,255,.08);
+    backdrop-filter:blur(20px);
+    background:rgba(5,5,12,.55);
+    position:sticky;
+    top:0;
+    z-index:10;
+}
+
+.logo{
+    font-size:25px;
+    font-weight:800;
+    letter-spacing:.5px;
+}
+
+.logo span{
+    color:#00d9ff;
+}
+
+nav{
+    display:flex;
+    gap:25px;
+}
+
+nav a{
+    color:#aaa;
+    text-decoration:none;
+    font-size:14px;
+    transition:.3s;
+}
+
+nav a:hover{
+    color:#fff;
+}
+
+.header-btn{
+    padding:10px 18px;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,.15);
+    background:rgba(255,255,255,.06);
+    color:#fff;
+    cursor:pointer;
+}
+
+/* Hero */
+.hero{
+    text-align:center;
+    padding:90px 20px 50px;
+}
+
+.badge{
+    display:inline-block;
+    padding:8px 15px;
+    border-radius:30px;
+    background:rgba(0,217,255,.08);
+    border:1px solid rgba(0,217,255,.2);
+    color:#62eaff;
+    font-size:13px;
+    margin-bottom:20px;
+}
+
+.hero h1{
+    font-size:clamp(42px,7vw,80px);
+    line-height:1;
+    margin-bottom:20px;
+    background:linear-gradient(90deg,#fff,#8befff,#9c7bff,#fff);
+    -webkit-background-clip:text;
+    color:transparent;
+    background-size:250%;
+    animation:shine 5s linear infinite;
+}
+
+@keyframes shine{
+    from{background-position:0%}
+    to{background-position:250%}
+}
+
+.hero p{
+    max-width:650px;
+    margin:auto;
+    color:#9c9ca8;
+    font-size:17px;
+    line-height:1.7;
+}
+
+/* Search */
+.search-box{
+    width:min(700px,92%);
+    margin:35px auto 0;
+    display:flex;
+    gap:10px;
+    padding:8px;
+    border:1px solid rgba(255,255,255,.12);
+    background:rgba(255,255,255,.05);
+    border-radius:18px;
+    backdrop-filter:blur(20px);
+}
+
+.search-box input{
+    flex:1;
+    background:transparent;
+    border:0;
+    outline:0;
+    color:#fff;
+    padding:14px;
+    font-size:15px;
+}
+
+.search-box input::placeholder{
+    color:#777;
+}
+
+.search-box button{
+    border:0;
+    border-radius:12px;
+    padding:0 23px;
+    background:linear-gradient(135deg,#7c3cff,#00bfe8);
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* Main */
+.container{
+    width:min(1100px,92%);
+    margin:auto;
+}
+
+.section-title{
+    margin:35px 0 20px;
+}
+
+.section-title h2{
+    font-size:25px;
+}
+
+.section-title p{
+    color:#777;
+    margin-top:7px;
+}
+
+/* Tools grid */
+.tools{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:16px;
+}
+
+.card{
+    padding:25px;
+    min-height:170px;
+    border:1px solid rgba(255,255,255,.09);
+    border-radius:20px;
+    background:linear-gradient(
+        145deg,
+        rgba(255,255,255,.075),
+        rgba(255,255,255,.025)
+    );
+    backdrop-filter:blur(18px);
+    transition:.35s;
+    cursor:pointer;
+}
+
+.card:hover{
+    transform:translateY(-7px);
+    border-color:rgba(0,217,255,.4);
+    box-shadow:0 15px 50px rgba(0,217,255,.08);
+}
+
+.icon{
+    width:48px;
+    height:48px;
+    display:grid;
+    place-items:center;
+    border-radius:14px;
+    background:rgba(0,217,255,.1);
+    font-size:23px;
+    margin-bottom:18px;
+}
+
+.card h3{
+    font-size:17px;
+    margin-bottom:8px;
+}
+
+.card p{
+    color:#888;
+    font-size:13px;
+    line-height:1.5;
+}
+
+/* Tool workspace */
+.workspace{
+    margin-top:35px;
+    display:none;
+    padding:25px;
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:22px;
+    background:rgba(255,255,255,.045);
+    backdrop-filter:blur(20px);
+}
+
+.workspace.active{
+    display:block;
+}
+
+.workspace-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.workspace-header h2{
+    font-size:22px;
+}
+
+.close-btn{
+    border:0;
+    background:rgba(255,255,255,.08);
+    color:#fff;
+    padding:8px 13px;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+textarea{
+    width:100%;
+    min-height:150px;
+    resize:vertical;
+    background:#090910;
+    color:#fff;
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:14px;
+    padding:15px;
+    outline:none;
+}
+
+.tool-input{
+    width:100%;
+    padding:14px;
+    background:#090910;
+    color:#fff;
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:12px;
+    outline:none;
+    margin-bottom:12px;
+}
+
+.action{
+    margin-top:12px;
+    padding:12px 18px;
+    border:0;
+    border-radius:11px;
+    background:linear-gradient(135deg,#7c3cff,#00bfe8);
+    color:#fff;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.result{
+    margin-top:15px;
+    padding:15px;
+    border-radius:12px;
+    background:rgba(0,0,0,.3);
+    color:#aaa;
+    min-height:45px;
+}
+
+/* Footer */
+footer{
+    text-align:center;
+    padding:60px 20px 30px;
+    color:#666;
+    font-size:13px;
+}
+
+/* Mobile */
+@media(max-width:850px){
+    .tools{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    nav{
+        display:none;
+    }
+}
+
+@media(max-width:500px){
+    .tools{
+        grid-template-columns:1fr;
+    }
+
+    .hero{
+        padding-top:60px;
+    }
+
+    .search-box{
+        flex-direction:column;
+    }
+
+    .search-box button{
+        height:48px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">Tool<span>ora</span></div>
+
+    <nav>
+        <a href="#">Home</a>
+        <a href="#tools">Tools</a>
+        <a href="#about">About</a>
+    </nav>
+
+    <button class="header-btn" onclick="showMessage()">
+        Get Started
+    </button>
+</header>
+
+<section class="hero">
+
+    <div class="badge">⚡ Smart tools. One place.</div>
+
+    <h1>Everything You Need.<br>In One ToolBox.</h1>
+
+    <p>
+        A modern collection of simple and powerful online tools
+        designed to make everyday tasks faster and easier.
+    </p>
+
+    <div class="search-box">
+        <input
+            id="search"
+            type="text"
+            placeholder="Search a tool..."
+            oninput="searchTools()"
+        >
+        <button onclick="searchTools()">Search</button>
+    </div>
+
+</section>
+
+<main class="container" id="tools">
+
+    <div class="section-title">
+        <h2>Popular Tools</h2>
+        <p>Choose a tool and start creating.</p>
+    </div>
+
+    <div class="tools">
+
+        <div class="card" data-name="calculator" onclick="openTool('calculator')">
+            <div class="icon">🔢</div>
+            <h3>Calculator</h3>
+            <p>Perform quick mathematical calculations.</p>
+        </div>
+
+        <div class="card" data-name="qr code generator" onclick="openTool('qr')">
+            <div class="icon">🔳</div>
+            <h3>QR Generator</h3>
+            <p>Create a QR code from any text or link.</p>
+        </div>
+
+        <div class="card" data-name="word counter text" onclick="openTool('text')">
+            <div class="icon">📝</div>
+            <h3>Text Counter</h3>
+            <p>Count words and characters instantly.</p>
+        </div>
+
+        <div class="card" data-name="password generator" onclick="openTool('password')">
+            <div class="icon">🔐</div>
+            <h3>Password Generator</h3>
+            <p>Generate strong random passwords.</p>
+        </div>
+
+        <div class="card" data-name="unit converter" onclick="openTool('converter')">
+            <div class="icon">🔄</div>
+            <h3>Unit Converter</h3>
+            <p>Convert common measurement units.</p>
+        </div>
+
+        <div class="card" data-name="image tools" onclick="openTool('image')">
+            <div class="icon">🖼️</div>
+            <h3>Image Tools</h3>
+            <p>Open a workspace for image-related tools.</p>
+        </div>
+
+        <div class="card" data-name="pdf tools" onclick="openTool('pdf')">
+            <div class="icon">📄</div>
+            <h3>PDF Tools</h3>
+            <p>Open your PDF tools workspace.</p>
+        </div>
+
+        <div class="card" data-name="code tools editor" onclick="openTool('code')">
+            <div class="icon">💻</div>
+            <h3>Code Tools</h3>
+            <p>Write and preview simple HTML code.</p>
+        </div>
+
+    </div>
+
+    <!-- Workspace -->
+    <section class="workspace" id="workspace">
+
+        <div class="workspace-header">
+            <h2 id="toolTitle">Tool</h2>
+            <button class="close-btn" onclick="closeTool()">✕ Close</button>
+        </div>
+
+        <div id="toolContent"></div>
+
+    </section>
+
+</main>
+
+<footer id="about">
+    © 2026 Toolora · Simple tools for everyone.
+</footer>
+
+
+<script>
+
+function showMessage(){
+    alert("Welcome to Toolora!");
+}
+
+
+/* Search */
+function searchTools(){
+
+    const value =
+        document.getElementById("search")
+        .value
+        .toLowerCase()
+        .trim();
+
+    const cards =
+        document.querySelectorAll(".card");
+
+    cards.forEach(card => {
+
+        const name =
+            card.dataset.name.toLowerCase();
+
+        card.style.display =
+            name.includes(value) ? "" : "none";
+
+    });
+}
+
+
+/* Open tool */
+function openTool(tool){
+
+    const workspace =
+        document.getElementById("workspace");
+
+    const title =
+        document.getElementById("toolTitle");
+
+    const content =
+        document.getElementById("toolContent");
+
+    workspace.classList.add("active");
+
+    if(tool === "calculator"){
+
+        title.textContent = "🔢 Calculator";
+
+        content.innerHTML = `
+            <input
+                class="tool-input"
+                id="calcInput"
+                placeholder="Example: 25 * 8 + 10"
+            >
+
+            <button class="action" onclick="calculate()">
+                Calculate
+            </button>
+
+            <div class="result" id="calcResult">
+                Result will appear here.
+            </div>
+        `;
+    }
+
+    if(tool === "qr"){
+
+        title.textContent = "🔳 QR Generator";
+
+        content.innerHTML = `
+            <input
+                class="tool-input"
+                id="qrInput"
+                placeholder="Enter text or URL..."
+            >
+
+            <button class="action" onclick="generateQR()">
+                Generate QR
+            </button>
+
+            <div class="result" id="qrResult">
+                QR preview will appear here.
+            </div>
+        `;
+    }
+
+    if(tool === "text"){
+
+        title.textContent = "📝 Text Counter";
+
+        content.innerHTML = `
+            <textarea
+                id="textInput"
+                placeholder="Type or paste your text..."
+                oninput="countText()"
+            ></textarea>
+
+            <div class="result" id="textResult">
+                Words: 0 | Characters: 0
+            </div>
+        `;
+    }
+
+    if(tool === "password"){
+
+        title.textContent = "🔐 Password Generator";
+
+        content.innerHTML = `
+            <input
+                class="tool-input"
+                id="passLength"
+                type="number"
+                min="4"
+                max="64"
+                value="16"
+            >
+
+            <button class="action" onclick="generatePassword()">
+                Generate Password
+            </button>
+
+            <div class="result" id="passResult">
+                Your password will appear here.
+            </div>
+        `;
+    }
+
+    if(tool === "converter"){
+
+        title.textContent = "🔄 Unit Converter";
+
+        content.innerHTML = `
+            <input
+                class="tool-input"
+                id="kmInput"
+                type="number"
+                placeholder="Kilometers"
+            >
+
+            <button class="action" onclick="convertKM()">
+                Convert to Miles
+            </button>
+
+            <div class="result" id="convertResult">
+                Result will appear here.
+            </div>
+        `;
+    }
+
+    if(tool === "image"){
+
+        title.textContent = "🖼️ Image Tools";
+
+        content.innerHTML = `
+            <p style="color:#999;line-height:1.7">
+                Image tools can be added here later:
+                resize, compress, crop, convert and more.
+            </p>
+        `;
+    }
+
+    if(tool === "pdf"){
+
+        title.textContent = "📄 PDF Tools";
+
+        content.innerHTML = `
+            <p style="color:#999;line-height:1.7">
+                PDF tools can be added here later:
+                merge, split, compress and convert.
+            </p>
+        `;
+    }
+
+    if(tool === "code"){
+
+        title.textContent = "💻 HTML Playground";
+
+        content.innerHTML = `
+            <textarea
+                id="codeInput"
+                placeholder="Write HTML here..."
+            ><h1 style="color:#00d9ff">Hello Toolora!</h1>
+<p>This is my first webpage.</p></textarea>
+
+            <button class="action" onclick="runCode()">
+                ▶ Run Code
+            </button>
+
+            <div
+                id="codePreview"
+                class="result"
+                style="background:white;color:#111;min-height:180px"
+            ></div>
+        `;
+    }
+
+    workspace.scrollIntoView({
+        behavior:"smooth",
+        block:"start"
+    });
+}
+
+
+/* Close */
+function closeTool(){
+
+    document
+        .getElementById("workspace")
+        .classList.remove("active");
+}
+
+
+/* Calculator */
+function calculate(){
+
+    const input =
+        document.getElementById("calcInput").value;
+
+    const result =
+        document.getElementById("calcResult");
+
+    try{
+
+        if(!/^[0-9+\-*/().% ]+$/.test(input)){
+            throw new Error();
+        }
+
+        result.textContent =
+            "Result: " + Function(
+                '"use strict"; return (' + input + ')'
+            )();
+
+    }catch{
+
+        result.textContent =
+            "Please enter a valid calculation.";
+
+    }
+}
+
+
+/* Text counter */
+function countText(){
+
+    const text =
+        document.getElementById("textInput").value;
+
+    const words =
+        text.trim() === ""
+        ? 0
+        : text.trim().split(/\s+/).length;
+
+    document.getElementById("textResult")
+        .textContent =
+        "Words: " + words +
+        " | Characters: " + text.length;
+}
+
+
+/* Password */
+function generatePassword(){
+
+    let length =
+        Number(document.getElementById("passLength").value);
+
+    length =
+        Math.max(4, Math.min(64, length));
+
+    const chars =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+        "abcdefghijklmnopqrstuvwxyz" +
+        "0123456789!@#$%^&*";
+
+    let password = "";
+
+    for(let i=0;i<length;i++){
+
+        password +=
+            chars[Math.floor(
+                Math.random() * chars.length
+            )];
+
+    }
+
+    document.getElementById("passResult")
+        .textContent = password;
+}
+
+
+/* Unit converter */
+function convertKM(){
+
+    const km =
+        Number(document.getElementById("kmInput").value);
+
+    if(isNaN(km)){
+
+        document.getElementById("convertResult")
+            .textContent =
+            "Enter a number.";
+
+        return;
+    }
+
+    const miles = km * 0.621371;
+
+    document.getElementById("convertResult")
+        .textContent =
+        km + " km = " +
+        miles.toFixed(3) +
+        " miles";
+}
+
+
+/* QR */
+function generateQR(){
+
+    const value =
+        document.getElementById("qrInput").value.trim();
+
+    const result =
+        document.getElementById("qrResult");
+
+    if(!value){
+
+        result.textContent =
+            "Enter some text or a URL first.";
+
+        return;
+    }
+
+    result.innerHTML = `
+        <div style="text-align:center">
+            <p style="margin-bottom:12px;color:#aaa">
+                QR preview
+            </p>
+
+            <img
+                src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(value)}"
+                alt="QR Code"
+                style="background:white;padding:10px;border-radius:10px"
+            >
+        </div>
+    `;
+}
+
+
+/* Code playground */
+function runCode(){
+
+    const code =
+        document.getElementById("codeInput").value;
+
+    document.getElementById("codePreview")
+        .innerHTML = code;
+}
+
+</script>
+
+</body>
+</html>
