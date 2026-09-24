@@ -6,11 +6,10 @@
 
 <title>Toolora — All-in-One Tools</title>
 
-<style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-/* =========================
-   RESET
-========================= */
+<style>
 
 *{
     margin:0;
@@ -26,54 +25,86 @@ html{
 body{
     min-height:100vh;
     color:#fff;
-    background:#05050b;
+    background:#030308;
     overflow-x:hidden;
 }
 
-/* =========================
-   ANIMATED BACKGROUND
-========================= */
+/* ================= RGB BACKGROUND ================= */
 
 body::before,
 body::after{
     content:"";
     position:fixed;
-    width:430px;
-    height:430px;
+    width:480px;
+    height:480px;
     border-radius:50%;
-    filter:blur(110px);
-    opacity:.30;
+    filter:blur(120px);
+    opacity:.45;
     z-index:-2;
-    animation:float 10s infinite alternate ease-in-out;
+    pointer-events:none;
+    animation:rgbFloat 8s infinite alternate ease-in-out;
 }
 
 body::before{
-    background:#7c3cff;
-    top:-140px;
-    left:-120px;
+    background:#ff003c;
+    top:-150px;
+    left:-150px;
 }
 
 body::after{
-    background:#00d9ff;
-    right:-140px;
-    bottom:-140px;
+    background:#00eaff;
+    right:-150px;
+    bottom:-150px;
     animation-delay:2s;
 }
 
-@keyframes float{
-
-    from{
+@keyframes rgbFloat{
+    0%{
         transform:translate(0,0) scale(1);
+        filter:blur(120px) hue-rotate(0deg);
     }
-
-    to{
-        transform:translate(80px,50px) scale(1.25);
+    25%{background:#7c00ff;}
+    50%{background:#006eff;}
+    75%{background:#00ffb7;}
+    100%{
+        transform:translate(90px,60px) scale(1.3);
+        filter:blur(120px) hue-rotate(360deg);
     }
 }
 
-/* =========================
-   HEADER
-========================= */
+.rgb-light{
+    position:fixed;
+    width:300px;
+    height:300px;
+    border-radius:50%;
+    background:#7c00ff;
+    filter:blur(120px);
+    opacity:.25;
+    left:45%;
+    top:35%;
+    z-index:-3;
+    animation:rgbCenter 7s infinite alternate;
+    pointer-events:none;
+}
+
+@keyframes rgbCenter{
+    0%{
+        background:#ff0055;
+        transform:translate(-150px,-100px);
+    }
+    25%{background:#ffae00;}
+    50%{
+        background:#00ff88;
+        transform:translate(150px,80px);
+    }
+    75%{background:#00c8ff;}
+    100%{
+        background:#8c00ff;
+        transform:translate(-100px,120px);
+    }
+}
+
+/* ================= HEADER ================= */
 
 header{
     width:100%;
@@ -81,25 +112,21 @@ header{
     display:flex;
     align-items:center;
     justify-content:space-between;
-
-    border-bottom:1px solid rgba(255,255,255,.08);
-
+    border-bottom:1px solid rgba(255,255,255,.1);
     backdrop-filter:blur(25px);
-    background:rgba(5,5,12,.65);
-
+    background:rgba(3,3,10,.72);
     position:sticky;
     top:0;
     z-index:100;
 }
 
 .logo{
-    font-size:26px;
+    font-size:27px;
     font-weight:900;
-    letter-spacing:.5px;
 }
 
 .logo span{
-    color:#00d9ff;
+    color:#00eaff;
 }
 
 nav{
@@ -115,33 +142,26 @@ nav a{
 }
 
 nav a:hover{
-    color:#00d9ff;
+    color:#00eaff;
 }
 
 .header-btn{
     padding:10px 18px;
     border-radius:12px;
-
-    border:1px solid rgba(0,217,255,.2);
-
-    background:rgba(0,217,255,.08);
-
+    border:1px solid rgba(0,238,255,.3);
+    background:rgba(0,238,255,.08);
     color:#fff;
-
     cursor:pointer;
-
     transition:.3s;
 }
 
 .header-btn:hover{
-    background:#00d9ff;
+    background:#00eaff;
     color:#000;
     transform:translateY(-2px);
 }
 
-/* =========================
-   HERO
-========================= */
+/* ================= HERO ================= */
 
 .hero{
     text-align:center;
@@ -150,144 +170,85 @@ nav a:hover{
 
 .badge{
     display:inline-block;
-
     padding:8px 16px;
-
     border-radius:30px;
-
-    background:rgba(0,217,255,.08);
-
-    border:1px solid rgba(0,217,255,.25);
-
-    color:#62eaff;
-
+    background:rgba(0,238,255,.08);
+    border:1px solid rgba(0,238,255,.3);
+    color:#62f3ff;
     font-size:13px;
-
     margin-bottom:22px;
-
-    box-shadow:0 0 25px rgba(0,217,255,.05);
 }
 
 .hero h1{
     font-size:clamp(42px,7vw,80px);
-
     line-height:1;
-
     margin-bottom:22px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #fff,
-            #8befff,
-            #9c7bff,
-            #fff
-        );
-
+    background:linear-gradient(
+        90deg,
+        #fff,
+        #00eaff,
+        #9c00ff,
+        #ff0088,
+        #fff
+    );
     -webkit-background-clip:text;
-
     color:transparent;
-
-    background-size:250%;
-
+    background-size:300%;
     animation:shine 5s linear infinite;
 }
 
 @keyframes shine{
-
-    from{
-        background-position:0%;
-    }
-
-    to{
-        background-position:250%;
-    }
+    from{background-position:0%;}
+    to{background-position:300%;}
 }
 
 .hero p{
-    max-width:650px;
-
+    max-width:680px;
     margin:auto;
-
-    color:#9c9ca8;
-
+    color:#aaa;
     font-size:17px;
-
     line-height:1.7;
 }
 
-/* =========================
-   LIVE SEARCH
-========================= */
+/* ================= SEARCH ================= */
 
 .search-wrapper{
     width:min(720px,92%);
-
     margin:38px auto 0;
-
-    position:relative;
 }
 
 .search-box{
-
     display:flex;
-
     align-items:center;
-
     gap:10px;
-
     padding:8px 10px;
-
-    border:1px solid rgba(255,255,255,.13);
-
-    background:rgba(255,255,255,.055);
-
+    border:1px solid rgba(255,255,255,.15);
+    background:rgba(255,255,255,.06);
     border-radius:18px;
-
     backdrop-filter:blur(25px);
-
-    box-shadow:
-        0 15px 60px rgba(0,0,0,.25),
-        inset 0 0 30px rgba(255,255,255,.02);
-
     transition:.3s;
 }
 
 .search-box:focus-within{
-
-    border-color:rgba(0,217,255,.5);
-
-    box-shadow:
-        0 0 35px rgba(0,217,255,.08),
-        inset 0 0 30px rgba(0,217,255,.03);
+    border-color:#00eaff;
+    box-shadow:0 0 40px rgba(0,234,255,.12);
 }
 
 .search-icon{
     width:45px;
     height:45px;
-
     display:grid;
     place-items:center;
-
     font-size:19px;
-
-    color:#00d9ff;
 }
 
 .search-box input{
-
     flex:1;
-
     background:transparent;
-
     border:0;
-
     outline:0;
-
     color:#fff;
-
     padding:14px 5px;
-
     font-size:15px;
 }
 
@@ -296,51 +257,27 @@ nav a:hover{
 }
 
 .clear-search{
-
     display:none;
-
     width:35px;
     height:35px;
-
     border:0;
-
     border-radius:10px;
-
     background:rgba(255,255,255,.08);
-
     color:#aaa;
-
     cursor:pointer;
-
-    font-size:16px;
 }
-
-.clear-search:hover{
-    color:#fff;
-}
-
-/* =========================
-   SEARCH STATUS
-========================= */
 
 .search-status{
-
     margin-top:12px;
-
     color:#777;
-
     font-size:13px;
-
     min-height:18px;
 }
 
-/* =========================
-   MAIN
-========================= */
+/* ================= MAIN ================= */
 
 .container{
-    width:min(1100px,92%);
-
+    width:min(1150px,92%);
     margin:auto;
 }
 
@@ -349,241 +286,111 @@ nav a:hover{
 }
 
 .section-title h2{
-    font-size:26px;
+    font-size:27px;
 }
 
 .section-title p{
     color:#777;
-
     margin-top:7px;
-
-    font-size:14px;
 }
 
-/* =========================
-   TOOLS GRID
-========================= */
+/* ================= TOOLS ================= */
 
 .tools{
-
     display:grid;
-
-    grid-template-columns:
-        repeat(4,1fr);
-
+    grid-template-columns:repeat(4,1fr);
     gap:17px;
 }
 
 .card{
-
-    position:relative;
-
-    padding:24px;
-
-    min-height:175px;
-
+    padding:23px;
+    min-height:180px;
     border:1px solid rgba(255,255,255,.09);
-
     border-radius:21px;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(255,255,255,.075),
-            rgba(255,255,255,.025)
-        );
-
+    background:linear-gradient(
+        145deg,
+        rgba(255,255,255,.08),
+        rgba(255,255,255,.025)
+    );
     backdrop-filter:blur(18px);
-
-    transition:
-        transform .35s,
-        border .35s,
-        box-shadow .35s;
-
+    transition:.35s;
     cursor:pointer;
-
     overflow:hidden;
 }
 
-.card::before{
-
-    content:"";
-
-    position:absolute;
-
-    width:120px;
-
-    height:120px;
-
-    border-radius:50%;
-
-    background:#00d9ff;
-
-    filter:blur(60px);
-
-    opacity:0;
-
-    top:-50px;
-
-    right:-50px;
-
-    transition:.4s;
-}
-
 .card:hover{
-
     transform:translateY(-8px);
-
-    border-color:
-        rgba(0,217,255,.45);
-
-    box-shadow:
-        0 18px 50px rgba(0,217,255,.09);
-}
-
-.card:hover::before{
-    opacity:.15;
+    border-color:#00eaff;
+    box-shadow:0 18px 55px rgba(0,234,255,.12);
 }
 
 .icon{
-
     width:50px;
     height:50px;
-
     display:grid;
     place-items:center;
-
     border-radius:15px;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(0,217,255,.13),
-            rgba(124,60,255,.13)
-        );
-
-    border:1px solid
-        rgba(255,255,255,.07);
-
+    background:linear-gradient(
+        135deg,
+        rgba(0,234,255,.14),
+        rgba(145,0,255,.14)
+    );
+    border:1px solid rgba(255,255,255,.08);
     font-size:23px;
-
-    margin-bottom:18px;
-
-    transition:.3s;
-}
-
-.card:hover .icon{
-
-    transform:scale(1.08);
-
-    box-shadow:
-        0 0 25px
-        rgba(0,217,255,.12);
+    margin-bottom:17px;
 }
 
 .card h3{
-
     font-size:17px;
-
     margin-bottom:8px;
 }
 
 .card p{
-
     color:#888;
-
     font-size:13px;
-
     line-height:1.5;
 }
-
-/* Search hidden cards */
 
 .card.hidden{
     display:none;
 }
 
-/* =========================
-   NO RESULTS
-========================= */
+/* ================= NO RESULTS ================= */
 
 .no-results{
-
     display:none;
-
     text-align:center;
-
     padding:50px 20px;
-
     color:#777;
-
-    border:1px dashed
-        rgba(255,255,255,.12);
-
+    border:1px dashed rgba(255,255,255,.15);
     border-radius:20px;
-
-    margin-top:5px;
+    margin-top:10px;
 }
 
 .no-results.show{
     display:block;
 }
 
-.no-results-icon{
-    font-size:35px;
-    margin-bottom:12px;
-}
-
-/* =========================
-   WORKSPACE
-========================= */
+/* ================= WORKSPACE ================= */
 
 .workspace{
-
     margin-top:35px;
-
     display:none;
-
     padding:25px;
-
-    border:1px solid
-        rgba(255,255,255,.1);
-
+    border:1px solid rgba(255,255,255,.12);
     border-radius:22px;
-
-    background:
-        rgba(255,255,255,.045);
-
+    background:rgba(255,255,255,.05);
     backdrop-filter:blur(20px);
-
-    animation:workspaceIn .35s ease;
 }
 
 .workspace.active{
     display:block;
 }
 
-@keyframes workspaceIn{
-
-    from{
-        opacity:0;
-        transform:translateY(15px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
 .workspace-header{
-
     display:flex;
-
     justify-content:space-between;
-
     align-items:center;
-
     margin-bottom:20px;
 }
 
@@ -592,174 +399,186 @@ nav a:hover{
 }
 
 .close-btn{
-
     border:0;
-
-    background:
-        rgba(255,255,255,.08);
-
+    background:rgba(255,255,255,.08);
     color:#fff;
-
     padding:8px 13px;
-
     border-radius:10px;
-
     cursor:pointer;
-
-    transition:.3s;
 }
 
-.close-btn:hover{
-    background:rgba(255,255,255,.15);
-}
+/* ================= INPUTS ================= */
 
-/* =========================
-   INPUTS
-========================= */
-
-textarea{
-
+.tool-input,
+textarea,
+select{
     width:100%;
-
-    min-height:150px;
-
-    resize:vertical;
-
-    background:#090910;
-
-    color:#fff;
-
-    border:1px solid
-        rgba(255,255,255,.1);
-
-    border-radius:14px;
-
-    padding:15px;
-
-    outline:none;
-}
-
-.tool-input{
-
-    width:100%;
-
     padding:14px;
-
-    background:#090910;
-
+    background:#08080f;
     color:#fff;
-
-    border:1px solid
-        rgba(255,255,255,.1);
-
+    border:1px solid rgba(255,255,255,.12);
     border-radius:12px;
-
     outline:none;
-
     margin-bottom:12px;
 }
 
+textarea{
+    min-height:180px;
+    resize:vertical;
+}
+
+select option{
+    background:#08080f;
+}
+
 .tool-input:focus,
-textarea:focus{
-
-    border-color:
-        rgba(0,217,255,.4);
-
-    box-shadow:
-        0 0 20px
-        rgba(0,217,255,.05);
+textarea:focus,
+select:focus{
+    border-color:#00eaff;
+    box-shadow:0 0 20px rgba(0,234,255,.08);
 }
 
 .action{
-
-    margin-top:12px;
-
+    margin-top:8px;
     padding:12px 18px;
-
     border:0;
-
     border-radius:11px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #7c3cff,
-            #00bfe8
-        );
-
+    background:linear-gradient(135deg,#7c00ff,#00c8ff);
     color:#fff;
-
     font-weight:bold;
-
     cursor:pointer;
-
     transition:.3s;
 }
 
 .action:hover{
-
     transform:translateY(-2px);
+}
 
-    box-shadow:
-        0 10px 30px
-        rgba(0,191,232,.15);
+.secondary{
+    background:rgba(255,255,255,.08);
 }
 
 .result{
-
     margin-top:15px;
-
     padding:15px;
-
     border-radius:12px;
-
-    background:
-        rgba(0,0,0,.3);
-
+    background:rgba(0,0,0,.35);
     color:#aaa;
-
     min-height:45px;
-
     word-break:break-word;
 }
 
-/* =========================
-   FOOTER
-========================= */
+/* ================= QR ================= */
+
+#qrResult{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:220px;
+}
+
+#qrcode{
+    padding:15px;
+    background:#fff;
+    border-radius:10px;
+}
+
+/* ================= IMAGE ================= */
+
+.image-preview{
+    width:100%;
+    min-height:300px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:18px;
+    border:1px solid rgba(255,255,255,.1);
+    background:#111;
+    margin-top:15px;
+    overflow:hidden;
+}
+
+.image-preview canvas{
+    max-width:100%;
+    height:auto;
+}
+
+/* ================= CODE ================= */
+
+.code-area{
+    min-height:250px;
+    font-family:monospace;
+    line-height:1.5;
+}
+
+.code-preview{
+    width:100%;
+    height:350px;
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:14px;
+    background:#fff;
+    margin-top:15px;
+}
+
+/* ================= COLOR ================= */
+
+.color-box{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    padding:20px;
+    border-radius:15px;
+    background:rgba(255,255,255,.05);
+}
+
+input[type="color"]{
+    width:80px;
+    height:55px;
+    border:0;
+    background:none;
+    cursor:pointer;
+}
+
+/* ================= FOOTER ================= */
 
 footer{
-
     text-align:center;
-
     padding:60px 20px 30px;
-
     color:#666;
-
     font-size:13px;
 }
 
-/* =========================
-   MOBILE
-========================= */
+.youtube-link{
+    display:inline-block;
+    margin-top:18px;
+    padding:12px 20px;
+    border-radius:12px;
+    background:linear-gradient(135deg,#ff003c,#ff0055);
+    color:#fff;
+    text-decoration:none;
+    font-weight:bold;
+    transition:.3s;
+}
 
-@media(max-width:850px){
+.youtube-link:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 30px rgba(255,0,70,.3);
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:900px){
 
     .tools{
-        grid-template-columns:
-            repeat(2,1fr);
+        grid-template-columns:repeat(2,1fr);
     }
 
     nav{
         display:none;
     }
-
-    header{
-        padding-left:5%;
-        padding-right:5%;
-    }
 }
 
-@media(max-width:500px){
+@media(max-width:550px){
 
     .tools{
         grid-template-columns:1fr;
@@ -770,19 +589,27 @@ footer{
     }
 
     .hero h1{
-        font-size:44px;
+        font-size:43px;
     }
 
-    .search-box{
-        padding:7px;
+    .workspace{
+        padding:18px;
     }
 
-    .search-icon{
-        width:40px;
+    .workspace-header h2{
+        font-size:18px;
+    }
+
+    header{
+        padding:14px 5%;
+    }
+
+    .logo{
+        font-size:23px;
     }
 
     .header-btn{
-        padding:9px 13px;
+        padding:8px 12px;
         font-size:12px;
     }
 }
@@ -790,13 +617,11 @@ footer{
 </style>
 </head>
 
-
 <body>
 
+<div class="rgb-light"></div>
 
-<!-- =========================
-     HEADER
-========================= -->
+<!-- HEADER -->
 
 <header>
 
@@ -805,34 +630,19 @@ footer{
     </div>
 
     <nav>
-
-        <a href="#">
-            Home
-        </a>
-
-        <a href="#tools">
-            Tools
-        </a>
-
-        <a href="#about">
-            About
-        </a>
-
+        <a href="#">Home</a>
+        <a href="#tools">Tools</a>
+        <a href="#about">About</a>
     </nav>
 
-    <button
-        class="header-btn"
-        onclick="showMessage()"
-    >
+    <button class="header-btn" onclick="showMessage()">
         Get Started
     </button>
 
 </header>
 
 
-<!-- =========================
-     HERO
-========================= -->
+<!-- HERO -->
 
 <section class="hero">
 
@@ -850,16 +660,11 @@ footer{
         designed to make everyday tasks faster and easier.
     </p>
 
-
-    <!-- LIVE SEARCH -->
-
     <div class="search-wrapper">
 
         <div class="search-box">
 
-            <div class="search-icon">
-                🔍
-            </div>
+            <div class="search-icon">🔍</div>
 
             <input
                 id="search"
@@ -889,235 +694,259 @@ footer{
 </section>
 
 
-<!-- =========================
-     MAIN
-========================= -->
+<!-- MAIN -->
 
-<main
-    class="container"
-    id="tools"
->
-
+<main class="container" id="tools">
 
     <div class="section-title">
-
-        <h2>
-            Popular Tools
-        </h2>
-
-        <p>
-            Choose a tool and start creating.
-        </p>
-
+        <h2>Popular Tools</h2>
+        <p>Choose a tool and start creating.</p>
     </div>
 
-
-    <!-- TOOLS -->
 
     <div class="tools">
 
+        <!-- 1 -->
 
-        <!-- Calculator -->
+        <div class="card"
+             data-name="calculator math calculate"
+             onclick="openTool('calculator')">
 
-        <div
-            class="card"
-            data-name="calculator math calculate"
-            onclick="openTool('calculator')"
-        >
-
-            <div class="icon">
-                🔢
-            </div>
-
-            <h3>
-                Calculator
-            </h3>
-
-            <p>
-                Perform quick mathematical calculations.
-            </p>
+            <div class="icon">🔢</div>
+            <h3>Calculator</h3>
+            <p>Perform quick mathematical calculations.</p>
 
         </div>
 
 
-        <!-- QR -->
+        <!-- 2 -->
 
-        <div
-            class="card"
-            data-name="qr code generator"
-            onclick="openTool('qr')"
-        >
+        <div class="card"
+             data-name="qr code generator"
+             onclick="openTool('qr')">
 
-            <div class="icon">
-                🔳
-            </div>
-
-            <h3>
-                QR Generator
-            </h3>
-
-            <p>
-                Create a QR code from any text or link.
-            </p>
+            <div class="icon">🔳</div>
+            <h3>QR Generator</h3>
+            <p>Create a QR code from text or a URL.</p>
 
         </div>
 
 
-        <!-- Text -->
+        <!-- 3 -->
 
-        <div
-            class="card"
-            data-name="text word counter characters"
-            onclick="openTool('text')"
-        >
+        <div class="card"
+             data-name="text word counter characters"
+             onclick="openTool('text')">
 
-            <div class="icon">
-                📝
-            </div>
-
-            <h3>
-                Text Counter
-            </h3>
-
-            <p>
-                Count words and characters instantly.
-            </p>
+            <div class="icon">📝</div>
+            <h3>Text Counter</h3>
+            <p>Count words and characters instantly.</p>
 
         </div>
 
 
-        <!-- Password -->
+        <!-- 4 -->
 
-        <div
-            class="card"
-            data-name="password generator security"
-            onclick="openTool('password')"
-        >
+        <div class="card"
+             data-name="password generator security"
+             onclick="openTool('password')">
 
-            <div class="icon">
-                🔐
-            </div>
-
-            <h3>
-                Password Generator
-            </h3>
-
-            <p>
-                Generate strong random passwords.
-            </p>
+            <div class="icon">🔐</div>
+            <h3>Password Generator</h3>
+            <p>Generate strong random passwords.</p>
 
         </div>
 
 
-        <!-- Converter -->
+        <!-- 5 -->
 
-        <div
-            class="card"
-            data-name="unit converter kilometer miles conversion"
-            onclick="openTool('converter')"
-        >
+        <div class="card"
+             data-name="unit converter kilometer miles conversion"
+             onclick="openTool('converter')">
 
-            <div class="icon">
-                🔄
-            </div>
-
-            <h3>
-                Unit Converter
-            </h3>
-
-            <p>
-                Convert common measurement units.
-            </p>
+            <div class="icon">🔄</div>
+            <h3>Unit Converter</h3>
+            <p>Convert common measurement units.</p>
 
         </div>
 
 
-        <!-- Image -->
+        <!-- 6 -->
 
-        <div
-            class="card"
-            data-name="image photo picture tools"
-            onclick="openTool('image')"
-        >
+        <div class="card"
+             data-name="image photo picture generator create image"
+             onclick="openTool('image')">
 
-            <div class="icon">
-                🖼️
-            </div>
-
-            <h3>
-                Image Tools
-            </h3>
-
-            <p>
-                Open a workspace for image-related tools.
-            </p>
+            <div class="icon">🖼️</div>
+            <h3>Image Creator</h3>
+            <p>Create and download custom images.</p>
 
         </div>
 
 
-        <!-- PDF -->
+        <!-- 7 -->
 
-        <div
-            class="card"
-            data-name="pdf document tools"
-            onclick="openTool('pdf')"
-        >
+        <div class="card"
+             data-name="pdf document text pdf generator"
+             onclick="openTool('pdf')">
 
-            <div class="icon">
-                📄
-            </div>
-
-            <h3>
-                PDF Tools
-            </h3>
-
-            <p>
-                Open your PDF tools workspace.
-            </p>
+            <div class="icon">📄</div>
+            <h3>PDF Creator</h3>
+            <p>Create downloadable PDF documents.</p>
 
         </div>
 
 
-        <!-- Code -->
+        <!-- 8 -->
 
-        <div
-            class="card"
-            data-name="code html editor playground developer"
-            onclick="openTool('code')"
-        >
+        <div class="card"
+             data-name="code html editor playground developer"
+             onclick="openTool('code')">
 
-            <div class="icon">
-                💻
-            </div>
-
-            <h3>
-                Code Tools
-            </h3>
-
-            <p>
-                Write and preview simple HTML code.
-            </p>
+            <div class="icon">💻</div>
+            <h3>Code Playground</h3>
+            <p>Write HTML and preview it instantly.</p>
 
         </div>
 
+
+        <!-- 9 -->
+
+        <div class="card"
+             data-name="color picker hex rgb design"
+             onclick="openTool('color')">
+
+            <div class="icon">🎨</div>
+            <h3>Color Picker</h3>
+            <p>Pick colors and get HEX and RGB values.</p>
+
+        </div>
+
+
+        <!-- 10 -->
+
+        <div class="card"
+             data-name="json formatter developer format"
+             onclick="openTool('json')">
+
+            <div class="icon">{ }</div>
+            <h3>JSON Formatter</h3>
+            <p>Format and validate JSON data.</p>
+
+        </div>
+
+
+        <!-- 11 -->
+
+        <div class="card"
+             data-name="base64 encode decode text"
+             onclick="openTool('base64')">
+
+            <div class="icon">🔤</div>
+            <h3>Base64 Tool</h3>
+            <p>Encode and decode Base64 text.</p>
+
+        </div>
+
+
+        <!-- 12 -->
+
+        <div class="card"
+             data-name="timestamp date time unix converter"
+             onclick="openTool('timestamp')">
+
+            <div class="icon">⏱️</div>
+            <h3>Timestamp Tool</h3>
+            <p>Convert Unix timestamps to dates.</p>
+
+        </div>
+
+
+        <!-- 13 -->
+
+        <div class="card"
+             data-name="url encoder decoder link web"
+             onclick="openTool('url')">
+
+            <div class="icon">🔗</div>
+            <h3>URL Encoder</h3>
+            <p>Encode or decode URLs and text.</p>
+
+        </div>
+
+
+        <!-- 14 -->
+
+        <div class="card"
+             data-name="text case uppercase lowercase title case"
+             onclick="openTool('case')">
+
+            <div class="icon">Aa</div>
+            <h3>Text Case Converter</h3>
+            <p>Convert text to different letter cases.</p>
+
+        </div>
+
+
+        <!-- 15 -->
+
+        <div class="card"
+             data-name="percentage calculator percent math"
+             onclick="openTool('percentage')">
+
+            <div class="icon">%</div>
+            <h3>Percentage Calculator</h3>
+            <p>Calculate percentages quickly.</p>
+
+        </div>
+
+
+        <!-- 16 -->
+
+        <div class="card"
+             data-name="uuid random id generator developer"
+             onclick="openTool('uuid')">
+
+            <div class="icon">🆔</div>
+            <h3>UUID Generator</h3>
+            <p>Generate unique random IDs.</p>
+
+        </div>
+
+
+        <!-- 17 -->
+
+        <div class="card"
+             data-name="html escape special characters developer"
+             onclick="openTool('escape')">
+
+            <div class="icon">&lt;/&gt;</div>
+            <h3>HTML Escape</h3>
+            <p>Escape HTML special characters.</p>
+
+        </div>
+
+
+        <!-- 18 -->
+
+        <div class="card"
+             data-name="random number generator number"
+             onclick="openTool('random')">
+
+            <div class="icon">🎲</div>
+            <h3>Random Number</h3>
+            <p>Generate a random number in a range.</p>
+
+        </div>
 
     </div>
 
 
-    <!-- NO RESULTS -->
+    <div class="no-results" id="noResults">
 
-    <div
-        class="no-results"
-        id="noResults"
-    >
+        <div style="font-size:35px;">🔎</div>
 
-        <div class="no-results-icon">
-            🔎
-        </div>
-
-        <h3>
-            No tools found
-        </h3>
+        <h3>No tools found</h3>
 
         <p style="margin-top:8px;">
             Try searching for another tool.
@@ -1126,14 +955,9 @@ footer{
     </div>
 
 
-    <!-- =========================
-         WORKSPACE
-    ========================= -->
+    <!-- WORKSPACE -->
 
-    <section
-        class="workspace"
-        id="workspace"
-    >
+    <section class="workspace" id="workspace">
 
         <div class="workspace-header">
 
@@ -1154,203 +978,167 @@ footer{
 
     </section>
 
-
 </main>
 
 
-<!-- =========================
-     FOOTER
-========================= -->
+<!-- FOOTER -->
 
 <footer id="about">
 
-    © 2026 Toolora ·
-    Simple tools for everyone.
+    <p>
+        © 2026 Toolora · Simple tools for everyone.
+    </p>
+
+    <a
+        class="youtube-link"
+        href="https://youtube.com/@aipasindu_10m?si=bpJCS90ZehA0qhQ6"
+        target="_blank"
+        rel="noopener noreferrer"
+    >
+        ▶ Visit My YouTube Channel
+    </a>
 
 </footer>
 
 
 <script>
 
-/* =========================
+/* =====================================================
    WELCOME
-========================= */
+===================================================== */
 
 function showMessage(){
 
-    alert(
-        "Welcome to Toolora!"
-    );
+    document.getElementById("tools")
+        .scrollIntoView({
+            behavior:"smooth"
+        });
 
 }
 
 
-/* =========================
+/* =====================================================
    LIVE SEARCH
-========================= */
+===================================================== */
 
 function liveSearch(){
 
     const input =
-        document
-        .getElementById("search");
+        document.getElementById("search");
 
     const value =
-        input.value
-        .toLowerCase()
-        .trim();
+        input.value.toLowerCase().trim();
 
     const cards =
-        document
-        .querySelectorAll(".card");
+        document.querySelectorAll(".card");
 
     const noResults =
-        document
-        .getElementById("noResults");
+        document.getElementById("noResults");
 
     const status =
-        document
-        .getElementById("searchStatus");
+        document.getElementById("searchStatus");
 
     const clear =
-        document
-        .getElementById("clearSearch");
+        document.getElementById("clearSearch");
 
     let found = 0;
-
-
-    /* Clear button */
 
     clear.style.display =
         value ? "block" : "none";
 
-
-    /* Search cards */
-
     cards.forEach(card => {
 
         const name =
-            card.dataset.name
-            .toLowerCase();
+            card.dataset.name.toLowerCase();
 
         if(
             value === "" ||
             name.includes(value)
         ){
 
-            card.classList.remove(
-                "hidden"
-            );
+            card.classList.remove("hidden");
 
             found++;
 
         }else{
 
-            card.classList.add(
-                "hidden"
-            );
+            card.classList.add("hidden");
 
         }
 
     });
 
+    if(value === ""){
 
-    /* No results */
-
-    if(
-        value !== "" &&
-        found === 0
-    ){
-
-        noResults.classList.add(
-            "show"
-        );
-
-        status.textContent =
-            "No matching tools";
+        status.textContent = "";
 
     }else{
 
-        noResults.classList.remove(
-            "show"
-        );
+        status.textContent =
+            found + " tool" +
+            (found === 1 ? "" : "s") +
+            " found";
 
-        if(value !== ""){
+    }
 
-            status.textContent =
-                found +
-                (found === 1
-                    ? " tool found"
-                    : " tools found"
-                );
+    if(found === 0 && value !== ""){
 
-        }else{
+        noResults.classList.add("show");
 
-            status.textContent = "";
+    }else{
 
-        }
+        noResults.classList.remove("show");
 
     }
 
 }
 
 
-/* =========================
+/* =====================================================
    CLEAR SEARCH
-========================= */
+===================================================== */
 
 function clearSearch(){
 
-    document
-        .getElementById("search")
-        .value = "";
+    document.getElementById("search").value = "";
 
     liveSearch();
 
-    document
-        .getElementById("search")
-        .focus();
+    document.getElementById("search").focus();
 
 }
 
 
-/* =========================
+/* =====================================================
    OPEN TOOL
-========================= */
+===================================================== */
 
 function openTool(tool){
 
     const workspace =
-        document
-        .getElementById("workspace");
+        document.getElementById("workspace");
 
     const title =
-        document
-        .getElementById("toolTitle");
+        document.getElementById("toolTitle");
 
     const content =
-        document
-        .getElementById("toolContent");
+        document.getElementById("toolContent");
+
+    workspace.classList.add("active");
 
 
-    workspace.classList.add(
-        "active"
-    );
-
-
-    /* Calculator */
+    /* CALCULATOR */
 
     if(tool === "calculator"){
 
-        title.textContent =
-            "🔢 Calculator";
+        title.textContent = "Calculator";
 
         content.innerHTML = `
 
             <input
-                class="tool-input"
                 id="calcInput"
-                placeholder="Example: 25 * 8 + 10"
+                class="tool-input"
+                placeholder="Example: 25 * 4 + 10"
             >
 
             <button
@@ -1374,17 +1162,16 @@ function openTool(tool){
 
     /* QR */
 
-    if(tool === "qr"){
+    else if(tool === "qr"){
 
-        title.textContent =
-            "🔳 QR Generator";
+        title.textContent = "QR Generator";
 
         content.innerHTML = `
 
             <input
-                class="tool-input"
                 id="qrInput"
-                placeholder="Enter text or URL..."
+                class="tool-input"
+                placeholder="Enter text or URL"
             >
 
             <button
@@ -1394,11 +1181,17 @@ function openTool(tool){
                 Generate QR
             </button>
 
-            <div
-                class="result"
-                id="qrResult"
+            <button
+                class="action secondary"
+                onclick="downloadQR()"
             >
-                QR preview will appear here.
+                Download QR
+            </button>
+
+            <div id="qrResult">
+
+                <div id="qrcode"></div>
+
             </div>
 
         `;
@@ -1406,12 +1199,11 @@ function openTool(tool){
     }
 
 
-    /* Text Counter */
+    /* TEXT COUNTER */
 
-    if(tool === "text"){
+    else if(tool === "text"){
 
-        title.textContent =
-            "📝 Text Counter";
+        title.textContent = "Text Counter";
 
         content.innerHTML = `
 
@@ -1425,8 +1217,9 @@ function openTool(tool){
                 class="result"
                 id="textResult"
             >
-                Words: 0 |
-                Characters: 0
+                Words: 0<br>
+                Characters: 0<br>
+                Lines: 0
             </div>
 
         `;
@@ -1434,22 +1227,22 @@ function openTool(tool){
     }
 
 
-    /* Password */
+    /* PASSWORD */
 
-    if(tool === "password"){
+    else if(tool === "password"){
 
-        title.textContent =
-            "🔐 Password Generator";
+        title.textContent = "Password Generator";
 
         content.innerHTML = `
 
             <input
-                class="tool-input"
                 id="passLength"
+                class="tool-input"
                 type="number"
                 min="4"
-                max="64"
+                max="100"
                 value="16"
+                placeholder="Password length"
             >
 
             <button
@@ -1461,7 +1254,7 @@ function openTool(tool){
 
             <div
                 class="result"
-                id="passResult"
+                id="passwordResult"
             >
                 Your password will appear here.
             </div>
@@ -1471,27 +1264,35 @@ function openTool(tool){
     }
 
 
-    /* Converter */
+    /* CONVERTER */
 
-    if(tool === "converter"){
+    else if(tool === "converter"){
 
-        title.textContent =
-            "🔄 Unit Converter";
+        title.textContent = "Unit Converter";
 
         content.innerHTML = `
 
+            <select id="convertType">
+                <option value="km">Kilometers → Miles</option>
+                <option value="miles">Miles → Kilometers</option>
+                <option value="kg">Kilograms → Pounds</option>
+                <option value="lb">Pounds → Kilograms</option>
+                <option value="c">Celsius → Fahrenheit</option>
+                <option value="f">Fahrenheit → Celsius</option>
+            </select>
+
             <input
+                id="convertInput"
                 class="tool-input"
-                id="kmInput"
                 type="number"
-                placeholder="Kilometers"
+                placeholder="Enter value"
             >
 
             <button
                 class="action"
-                onclick="convertKM()"
+                onclick="convertUnit()"
             >
-                Convert to Miles
+                Convert
             </button>
 
             <div
@@ -1506,89 +1307,243 @@ function openTool(tool){
     }
 
 
-    /* Image */
+    /* IMAGE */
 
-    if(tool === "image"){
+    else if(tool === "image"){
 
-        title.textContent =
-            "🖼️ Image Tools";
+        title.textContent = "Image Creator";
 
         content.innerHTML = `
 
-            <p
-                style="
-                color:#999;
-                line-height:1.7;
-                "
+            <input
+                id="imageText"
+                class="tool-input"
+                placeholder="Enter image text"
+                value="TOOLORA"
             >
-                Image tools can be added here later:
-                resize, compress, crop, convert and more.
-            </p>
+
+            <label>Background</label>
+
+            <input
+                id="imageBg"
+                type="color"
+                value="#111111"
+            >
+
+            <br><br>
+
+            <label>Text Color</label>
+
+            <input
+                id="imageColor"
+                type="color"
+                value="#00eaff"
+            >
+
+            <br><br>
+
+            <button
+                class="action"
+                onclick="createImage()"
+            >
+                Create Image
+            </button>
+
+            <button
+                class="action secondary"
+                onclick="downloadImage()"
+            >
+                Download PNG
+            </button>
+
+            <div class="image-preview">
+
+                <canvas
+                    id="imageCanvas"
+                    width="1200"
+                    height="675"
+                ></canvas>
+
+            </div>
 
         `;
+
+        createImage();
 
     }
 
 
     /* PDF */
 
-    if(tool === "pdf"){
+    else if(tool === "pdf"){
 
-        title.textContent =
-            "📄 PDF Tools";
+        title.textContent = "PDF Creator";
 
         content.innerHTML = `
 
-            <p
-                style="
-                color:#999;
-                line-height:1.7;
-                "
+            <input
+                id="pdfName"
+                class="tool-input"
+                value="Toolora-Document"
+                placeholder="File name"
             >
-                PDF tools can be added here later:
-                merge, split, compress and convert.
-            </p>
+
+            <textarea
+                id="pdfText"
+                placeholder="Write your PDF content here..."
+            ></textarea>
+
+            <button
+                class="action"
+                onclick="createPDF()"
+            >
+                Download PDF
+            </button>
+
+            <div
+                class="result"
+                id="pdfResult"
+            >
+                Enter your text and download a PDF.
+            </div>
 
         `;
 
     }
 
 
-    /* Code */
+    /* CODE */
 
-    if(tool === "code"){
+    else if(tool === "code"){
 
-        title.textContent =
-            "💻 HTML Playground";
+        title.textContent = "Code Playground";
 
         content.innerHTML = `
 
             <textarea
                 id="codeInput"
+                class="code-area"
                 placeholder="Write HTML here..."
-            ><h1 style="color:#00d9ff">
-Hello Toolora!
-</h1>
-
-<p>
-This is my first webpage.
-</p></textarea>
+            >&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+&lt;h1&gt;Hello Toolora&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;</textarea>
 
             <button
                 class="action"
                 onclick="runCode()"
             >
-                ▶ Run Code
+                Run Code
+            </button>
+
+            <iframe
+                id="codePreview"
+                class="code-preview"
+            ></iframe>
+
+        `;
+
+        runCode();
+
+    }
+
+
+    /* COLOR */
+
+    else if(tool === "color"){
+
+        title.textContent = "Color Picker";
+
+        content.innerHTML = `
+
+            <div class="color-box">
+
+                <input
+                    id="colorInput"
+                    type="color"
+                    value="#00eaff"
+                    oninput="showColor()"
+                >
+
+                <div
+                    id="colorResult"
+                    class="result"
+                >
+                    HEX: #00EAFF<br>
+                    RGB: rgb(0,234,255)
+                </div>
+
+            </div>
+
+        `;
+
+    }
+
+
+    /* JSON */
+
+    else if(tool === "json"){
+
+        title.textContent = "JSON Formatter";
+
+        content.innerHTML = `
+
+            <textarea
+                id="jsonInput"
+                placeholder='{"name":"Toolora","type":"tools"}'
+            ></textarea>
+
+            <button
+                class="action"
+                onclick="formatJSON()"
+            >
+                Format JSON
             </button>
 
             <div
-                id="codePreview"
                 class="result"
-                style="
-                    background:white;
-                    color:#111;
-                    min-height:180px;
-                "
+                id="jsonResult"
+            >
+                Formatted JSON will appear here.
+            </div>
+
+        `;
+
+    }
+
+
+    /* BASE64 */
+
+    else if(tool === "base64"){
+
+        title.textContent = "Base64 Tool";
+
+        content.innerHTML = `
+
+            <textarea
+                id="base64Input"
+                placeholder="Enter text..."
+            ></textarea>
+
+            <button
+                class="action"
+                onclick="encodeBase64()"
+            >
+                Encode
+            </button>
+
+            <button
+                class="action secondary"
+                onclick="decodeBase64()"
+            >
+                Decode
+            </button>
+
+            <div
+                class="result"
+                id="base64Result"
             ></div>
 
         `;
@@ -1596,294 +1551,1105 @@ This is my first webpage.
     }
 
 
-    workspace.scrollIntoView({
-        behavior:"smooth",
-        block:"start"
-    });
+    /* TIMESTAMP */
+
+    else if(tool === "timestamp"){
+
+        title.textContent = "Timestamp Tool";
+
+        content.innerHTML = `
+
+            <input
+                id="timestampInput"
+                class="tool-input"
+                type="number"
+                placeholder="Example: 1725000000"
+            >
+
+            <button
+                class="action"
+                onclick="convertTimestamp()"
+            >
+                Convert
+            </button>
+
+            <div
+                class="result"
+                id="timestampResult"
+            ></div>
+
+        `;
+
+    }
+
+
+    /* URL */
+
+    else if(tool === "url"){
+
+        title.textContent = "URL Encoder / Decoder";
+
+        content.innerHTML = `
+
+            <textarea
+                id="urlInput"
+                placeholder="Enter URL or text..."
+            ></textarea>
+
+            <button
+                class="action"
+                onclick="encodeURL()"
+            >
+                Encode
+            </button>
+
+            <button
+                class="action secondary"
+                onclick="decodeURL()"
+            >
+                Decode
+            </button>
+
+            <div
+                class="result"
+                id="urlResult"
+            ></div>
+
+        `;
+
+    }
+
+
+    /* CASE */
+
+    else if(tool === "case"){
+
+        title.textContent = "Text Case Converter";
+
+        content.innerHTML = `
+
+            <textarea
+                id="caseInput"
+                placeholder="Enter your text..."
+            ></textarea>
+
+            <button
+                class="action"
+                onclick="upperCase()"
+            >
+                UPPERCASE
+            </button>
+
+            <button
+                class="action secondary"
+                onclick="lowerCase()"
+            >
+                lowercase
+            </button>
+
+            <button
+                class="action secondary"
+                onclick="titleCase()"
+            >
+                Title Case
+            </button>
+
+            <div
+                class="result"
+                id="caseResult"
+            ></div>
+
+        `;
+
+    }
+
+
+    /* PERCENTAGE */
+
+    else if(tool === "percentage"){
+
+        title.textContent = "Percentage Calculator";
+
+        content.innerHTML = `
+
+            <input
+                id="percentValue"
+                class="tool-input"
+                type="number"
+                placeholder="Percentage"
+            >
+
+            <input
+                id="percentNumber"
+                class="tool-input"
+                type="number"
+                placeholder="Number"
+            >
+
+            <button
+                class="action"
+                onclick="calculatePercentage()"
+            >
+                Calculate
+            </button>
+
+            <div
+                class="result"
+                id="percentageResult"
+            ></div>
+
+        `;
+
+    }
+
+
+    /* UUID */
+
+    else if(tool === "uuid"){
+
+        title.textContent = "UUID Generator";
+
+        content.innerHTML = `
+
+            <button
+                class="action"
+                onclick="generateUUID()"
+            >
+                Generate UUID
+            </button>
+
+            <div
+                class="result"
+                id="uuidResult"
+            ></div>
+
+        `;
+
+    }
+
+
+    /* HTML ESCAPE */
+
+    else if(tool === "escape"){
+
+        title.textContent = "HTML Escape Tool";
+
+        content.innerHTML = `
+
+            <textarea
+                id="escapeInput"
+                placeholder="<div>Hello</div>"
+            ></textarea>
+
+            <button
+                class="action"
+                onclick="escapeHTML()"
+            >
+                Escape HTML
+            </button>
+
+            <div
+                class="result"
+                id="escapeResult"
+            ></div>
+
+        `;
+
+    }
+
+
+    /* RANDOM */
+
+    else if(tool === "random"){
+
+        title.textContent = "Random Number Generator";
+
+        content.innerHTML = `
+
+            <input
+                id="randomMin"
+                class="tool-input"
+                type="number"
+                value="1"
+                placeholder="Minimum"
+            >
+
+            <input
+                id="randomMax"
+                class="tool-input"
+                type="number"
+                value="100"
+                placeholder="Maximum"
+            >
+
+            <button
+                class="action"
+                onclick="randomNumber()"
+            >
+                Generate
+            </button>
+
+            <div
+                class="result"
+                id="randomResult"
+            ></div>
+
+        `;
+
+    }
 
 }
 
 
-/* =========================
+/* =====================================================
    CLOSE TOOL
-========================= */
+===================================================== */
 
 function closeTool(){
 
     document
         .getElementById("workspace")
-        .classList.remove(
-            "active"
-        );
+        .classList.remove("active");
 
 }
 
 
-/* =========================
+/* =====================================================
    CALCULATOR
-========================= */
+===================================================== */
 
 function calculate(){
 
     const input =
-        document
-        .getElementById("calcInput")
-        .value;
+        document.getElementById("calcInput").value.trim();
 
     const result =
-        document
-        .getElementById("calcResult");
+        document.getElementById("calcResult");
 
+    if(!input){
+
+        result.textContent =
+            "Please enter a calculation.";
+
+        return;
+    }
+
+    if(!/^[0-9+\-*/().% ]+$/.test(input)){
+
+        result.textContent =
+            "Only numbers and math operators are allowed.";
+
+        return;
+    }
 
     try{
 
-        if(
-            !/^[0-9+\-*/().% ]+$/
-            .test(input)
-        ){
-
-            throw new Error();
-
-        }
-
+        const value =
+            Function('"use strict";return (' + input + ')')();
 
         result.textContent =
-            "Result: " +
-            Function(
-                '"use strict"; return (' +
-                input +
-                ')'
-            )();
+            "Result: " + value;
 
-    }
-
-    catch{
+    }catch{
 
         result.textContent =
-            "Please enter a valid calculation.";
+            "Invalid calculation.";
 
     }
 
 }
 
 
-/* =========================
-   TEXT COUNTER
-========================= */
-
-function countText(){
-
-    const text =
-        document
-        .getElementById("textInput")
-        .value;
-
-    const words =
-        text.trim() === ""
-        ? 0
-        : text
-            .trim()
-            .split(/\s+/)
-            .length;
-
-
-    document
-        .getElementById("textResult")
-        .textContent =
-            "Words: " +
-            words +
-            " | Characters: " +
-            text.length;
-
-}
-
-
-/* =========================
-   PASSWORD
-========================= */
-
-function generatePassword(){
-
-    let length =
-        Number(
-            document
-            .getElementById("passLength")
-            .value
-        );
-
-
-    length =
-        Math.max(
-            4,
-            Math.min(
-                64,
-                length
-            )
-        );
-
-
-    const chars =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
-        "abcdefghijklmnopqrstuvwxyz" +
-        "0123456789!@#$%^&*";
-
-
-    let password = "";
-
-
-    for(
-        let i = 0;
-        i < length;
-        i++
-    ){
-
-        password +=
-            chars[
-                Math.floor(
-                    Math.random() *
-                    chars.length
-                )
-            ];
-
-    }
-
-
-    document
-        .getElementById("passResult")
-        .textContent =
-            password;
-
-}
-
-
-/* =========================
-   UNIT CONVERTER
-========================= */
-
-function convertKM(){
-
-    const km =
-        Number(
-            document
-            .getElementById("kmInput")
-            .value
-        );
-
-
-    if(isNaN(km)){
-
-        document
-            .getElementById(
-                "convertResult"
-            )
-            .textContent =
-                "Enter a number.";
-
-        return;
-
-    }
-
-
-    const miles =
-        km * 0.621371;
-
-
-    document
-        .getElementById(
-            "convertResult"
-        )
-        .textContent =
-            km +
-            " km = " +
-            miles.toFixed(3) +
-            " miles";
-
-}
-
-
-/* =========================
-   QR GENERATOR
-========================= */
+/* =====================================================
+   QR
+===================================================== */
 
 function generateQR(){
 
     const value =
-        document
-        .getElementById("qrInput")
-        .value
-        .trim();
+        document.getElementById("qrInput").value.trim();
 
-    const result =
-        document
-        .getElementById("qrResult");
+    const box =
+        document.getElementById("qrcode");
 
+    box.innerHTML = "";
 
     if(!value){
 
-        result.textContent =
-            "Enter some text or a URL first.";
+        box.innerHTML =
+            "<span style='color:#111'>Enter text first.</span>";
 
         return;
-
     }
 
+    new QRCode(box,{
+        text:value,
+        width:180,
+        height:180,
+        colorDark:"#000000",
+        colorLight:"#ffffff"
+    });
 
-    result.innerHTML = `
+}
 
-        <div
-            style="
-            text-align:center;
-            "
-        >
+function downloadQR(){
 
-            <p
-                style="
-                margin-bottom:12px;
-                color:#aaa;
-                "
-            >
-                QR Preview
-            </p>
+    const box =
+        document.getElementById("qrcode");
 
-            <img
-                src="
-                https://api.qrserver.com/v1/create-qr-code/
-                ?size=180x180
-                &data=${encodeURIComponent(value)}
-                "
-                alt="QR Code"
-                style="
-                    background:white;
-                    padding:10px;
-                    border-radius:10px;
-                "
-            >
+    const canvas =
+        box.querySelector("canvas");
 
-        </div>
+    const img =
+        box.querySelector("img");
 
-    `;
+    let url = "";
+
+    if(canvas){
+        url = canvas.toDataURL("image/png");
+    }else if(img){
+        url = img.src;
+    }else{
+        alert("Generate a QR code first.");
+        return;
+    }
+
+    const a =
+        document.createElement("a");
+
+    a.href = url;
+    a.download = "Toolora-QR.png";
+    a.click();
 
 }
 
 
-/* =========================
+/* =====================================================
+   TEXT COUNTER
+===================================================== */
+
+function countText(){
+
+    const text =
+        document.getElementById("textInput").value;
+
+    const words =
+        text.trim()
+        ? text.trim().split(/\s+/).length
+        : 0;
+
+    const characters =
+        text.length;
+
+    const lines =
+        text
+        ? text.split("\n").length
+        : 0;
+
+    document.getElementById("textResult").innerHTML =
+        "Words: " + words +
+        "<br>Characters: " + characters +
+        "<br>Lines: " + lines;
+
+}
+
+
+/* =====================================================
+   PASSWORD
+===================================================== */
+
+function generatePassword(){
+
+    let length =
+        parseInt(
+            document.getElementById("passLength").value
+        );
+
+    if(!length || length < 4){
+        length = 4;
+    }
+
+    if(length > 100){
+        length = 100;
+    }
+
+    const chars =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
+
+    let password = "";
+
+    for(let i=0;i<length;i++){
+
+        password +=
+            chars.charAt(
+                Math.floor(
+                    Math.random()*chars.length
+                )
+            );
+
+    }
+
+    document.getElementById("passwordResult").textContent =
+        password;
+
+}
+
+
+/* =====================================================
+   CONVERTER
+===================================================== */
+
+function convertUnit(){
+
+    const value =
+        parseFloat(
+            document.getElementById("convertInput").value
+        );
+
+    const type =
+        document.getElementById("convertType").value;
+
+    const result =
+        document.getElementById("convertResult");
+
+    if(isNaN(value)){
+
+        result.textContent =
+            "Please enter a number.";
+
+        return;
+    }
+
+    let answer;
+
+    switch(type){
+
+        case "km":
+            answer = value * 0.621371;
+            result.textContent =
+                value + " km = " +
+                answer.toFixed(4) + " miles";
+            break;
+
+        case "miles":
+            answer = value * 1.60934;
+            result.textContent =
+                value + " miles = " +
+                answer.toFixed(4) + " km";
+            break;
+
+        case "kg":
+            answer = value * 2.20462;
+            result.textContent =
+                value + " kg = " +
+                answer.toFixed(4) + " lb";
+            break;
+
+        case "lb":
+            answer = value * 0.453592;
+            result.textContent =
+                value + " lb = " +
+                answer.toFixed(4) + " kg";
+            break;
+
+        case "c":
+            answer = (value * 9/5) + 32;
+            result.textContent =
+                value + " °C = " +
+                answer.toFixed(2) + " °F";
+            break;
+
+        case "f":
+            answer = (value - 32) * 5/9;
+            result.textContent =
+                value + " °F = " +
+                answer.toFixed(2) + " °C";
+            break;
+
+    }
+
+}
+
+
+/* =====================================================
+   IMAGE CREATOR
+===================================================== */
+
+function createImage(){
+
+    const canvas =
+        document.getElementById("imageCanvas");
+
+    if(!canvas) return;
+
+    const ctx =
+        canvas.getContext("2d");
+
+    const text =
+        document.getElementById("imageText").value ||
+        "TOOLORA";
+
+    const bg =
+        document.getElementById("imageBg").value;
+
+    const color =
+        document.getElementById("imageColor").value;
+
+    const gradient =
+        ctx.createLinearGradient(
+            0,0,
+            canvas.width,
+            canvas.height
+        );
+
+    gradient.addColorStop(0,bg);
+    gradient.addColorStop(1,"#050505");
+
+    ctx.fillStyle = gradient;
+
+    ctx.fillRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 8;
+
+    ctx.strokeRect(
+        30,
+        30,
+        canvas.width-60,
+        canvas.height-60
+    );
+
+    ctx.fillStyle = color;
+
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+
+    let size = 100;
+
+    if(text.length > 15){
+        size = 70;
+    }
+
+    ctx.font =
+        "900 " + size + "px Arial";
+
+    ctx.shadowColor = color;
+    ctx.shadowBlur = 30;
+
+    ctx.fillText(
+        text,
+        canvas.width/2,
+        canvas.height/2
+    );
+
+    ctx.shadowBlur = 0;
+
+}
+
+function downloadImage(){
+
+    const canvas =
+        document.getElementById("imageCanvas");
+
+    if(!canvas){
+
+        alert("Create an image first.");
+
+        return;
+    }
+
+    const a =
+        document.createElement("a");
+
+    a.download =
+        "Toolora-Image.png";
+
+    a.href =
+        canvas.toDataURL("image/png");
+
+    a.click();
+
+}
+
+
+/* =====================================================
+   PDF
+===================================================== */
+
+function createPDF(){
+
+    const text =
+        document.getElementById("pdfText").value;
+
+    const name =
+        document.getElementById("pdfName").value
+        || "Toolora-Document";
+
+    const result =
+        document.getElementById("pdfResult");
+
+    if(!text.trim()){
+
+        result.textContent =
+            "Please enter some text first.";
+
+        return;
+    }
+
+    if(!window.jspdf){
+
+        result.textContent =
+            "PDF library is not loaded. Check your internet connection.";
+
+        return;
+    }
+
+    try{
+
+        const { jsPDF } =
+            window.jspdf;
+
+        const doc =
+            new jsPDF();
+
+        const lines =
+            doc.splitTextToSize(
+                text,
+                170
+            );
+
+        let y = 20;
+
+        lines.forEach(line => {
+
+            if(y > 280){
+
+                doc.addPage();
+
+                y = 20;
+
+            }
+
+            doc.text(
+                line,
+                20,
+                y
+            );
+
+            y += 8;
+
+        });
+
+        doc.save(
+            name.replace(/\.pdf$/i,"") +
+            ".pdf"
+        );
+
+        result.textContent =
+            "PDF downloaded successfully.";
+
+    }catch(error){
+
+        result.textContent =
+            "Could not create PDF.";
+
+    }
+
+}
+
+
+/* =====================================================
    CODE PLAYGROUND
-========================= */
+===================================================== */
 
 function runCode(){
 
     const code =
-        document
-        .getElementById("codeInput")
-        .value;
+        document.getElementById("codeInput").value;
+
+    const preview =
+        document.getElementById("codePreview");
+
+    preview.srcdoc = code;
+
+}
 
 
-    document
-        .getElementById(
-            "codePreview"
-        )
-        .innerHTML =
-            code;
+/* =====================================================
+   COLOR
+===================================================== */
+
+function showColor(){
+
+    const color =
+        document.getElementById("colorInput").value;
+
+    const r =
+        parseInt(color.substr(1,2),16);
+
+    const g =
+        parseInt(color.substr(3,2),16);
+
+    const b =
+        parseInt(color.substr(5,2),16);
+
+    document.getElementById("colorResult").innerHTML =
+        "HEX: " + color.toUpperCase() +
+        "<br>RGB: rgb(" +
+        r + "," +
+        g + "," +
+        b + ")";
+
+}
+
+
+/* =====================================================
+   JSON
+===================================================== */
+
+function formatJSON(){
+
+    const input =
+        document.getElementById("jsonInput").value;
+
+    const result =
+        document.getElementById("jsonResult");
+
+    try{
+
+        const data =
+            JSON.parse(input);
+
+        result.textContent =
+            JSON.stringify(
+                data,
+                null,
+                4
+            );
+
+    }catch{
+
+        result.textContent =
+            "Invalid JSON.";
+
+    }
+
+}
+
+
+/* =====================================================
+   BASE64
+===================================================== */
+
+function encodeBase64(){
+
+    const text =
+        document.getElementById("base64Input").value;
+
+    try{
+
+        document.getElementById("base64Result")
+            .textContent =
+            btoa(
+                unescape(
+                    encodeURIComponent(text)
+                )
+            );
+
+    }catch{
+
+        document.getElementById("base64Result")
+            .textContent =
+            "Could not encode text.";
+
+    }
+
+}
+
+function decodeBase64(){
+
+    const text =
+        document.getElementById("base64Input").value;
+
+    try{
+
+        document.getElementById("base64Result")
+            .textContent =
+            decodeURIComponent(
+                escape(
+                    atob(text)
+                )
+            );
+
+    }catch{
+
+        document.getElementById("base64Result")
+            .textContent =
+            "Invalid Base64 text.";
+
+    }
+
+}
+
+
+/* =====================================================
+   TIMESTAMP
+===================================================== */
+
+function convertTimestamp(){
+
+    const value =
+        Number(
+            document.getElementById("timestampInput").value
+        );
+
+    if(!value){
+
+        document.getElementById("timestampResult")
+            .textContent =
+            "Please enter a timestamp.";
+
+        return;
+    }
+
+    const date =
+        new Date(value * 1000);
+
+    document.getElementById("timestampResult")
+        .textContent =
+        date.toString();
+
+}
+
+
+/* =====================================================
+   URL
+===================================================== */
+
+function encodeURL(){
+
+    const text =
+        document.getElementById("urlInput").value;
+
+    document.getElementById("urlResult")
+        .textContent =
+        encodeURIComponent(text);
+
+}
+
+function decodeURL(){
+
+    const text =
+        document.getElementById("urlInput").value;
+
+    try{
+
+        document.getElementById("urlResult")
+            .textContent =
+            decodeURIComponent(text);
+
+    }catch{
+
+        document.getElementById("urlResult")
+            .textContent =
+            "Invalid encoded text.";
+
+    }
+
+}
+
+
+/* =====================================================
+   TEXT CASE
+===================================================== */
+
+function upperCase(){
+
+    const text =
+        document.getElementById("caseInput").value;
+
+    document.getElementById("caseResult")
+        .textContent =
+        text.toUpperCase();
+
+}
+
+function lowerCase(){
+
+    const text =
+        document.getElementById("caseInput").value;
+
+    document.getElementById("caseResult")
+        .textContent =
+        text.toLowerCase();
+
+}
+
+function titleCase(){
+
+    const text =
+        document.getElementById("caseInput").value;
+
+    document.getElementById("caseResult")
+        .textContent =
+        text.toLowerCase()
+        .replace(
+            /\b\w/g,
+            c => c.toUpperCase()
+        );
+
+}
+
+
+/* =====================================================
+   PERCENTAGE
+===================================================== */
+
+function calculatePercentage(){
+
+    const percent =
+        parseFloat(
+            document.getElementById("percentValue").value
+        );
+
+    const number =
+        parseFloat(
+            document.getElementById("percentNumber").value
+        );
+
+    if(isNaN(percent) || isNaN(number)){
+
+        document.getElementById("percentageResult")
+            .textContent =
+            "Please enter both values.";
+
+        return;
+    }
+
+    const answer =
+        (percent / 100) * number;
+
+    document.getElementById("percentageResult")
+        .textContent =
+        percent + "% of " +
+        number + " = " +
+        answer;
+
+}
+
+
+/* =====================================================
+   UUID
+===================================================== */
+
+function generateUUID(){
+
+    let uuid;
+
+    if(crypto.randomUUID){
+
+        uuid = crypto.randomUUID();
+
+    }else{
+
+        uuid =
+            "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx"
+            .replace(
+                /[xy]/g,
+                function(c){
+
+                    const r =
+                        Math.random()*16|0;
+
+                    const v =
+                        c === "x"
+                        ? r
+                        : (r&0x3|0x8);
+
+                    return v.toString(16);
+
+                }
+            );
+
+    }
+
+    document.getElementById("uuidResult")
+        .textContent =
+        uuid;
+
+}
+
+
+/* =====================================================
+   HTML ESCAPE
+===================================================== */
+
+function escapeHTML(){
+
+    const text =
+        document.getElementById("escapeInput").value;
+
+    const escaped =
+        text
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+    document.getElementById("escapeResult")
+        .textContent =
+        escaped;
+
+}
+
+
+/* =====================================================
+   RANDOM NUMBER
+===================================================== */
+
+function randomNumber(){
+
+    let min =
+        parseInt(
+            document.getElementById("randomMin").value
+        );
+
+    let max =
+        parseInt(
+            document.getElementById("randomMax").value
+        );
+
+    if(isNaN(min) || isNaN(max)){
+
+        document.getElementById("randomResult")
+            .textContent =
+            "Enter valid numbers.";
+
+        return;
+    }
+
+    if(min > max){
+
+        [min,max] =
+            [max,min];
+
+    }
+
+    const number =
+        Math.floor(
+            Math.random() *
+            (max-min+1)
+        ) + min;
+
+    document.getElementById("randomResult")
+        .textContent =
+        "Random Number: " + number;
 
 }
 
