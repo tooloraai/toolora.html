@@ -3,14 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Toolora — All-in-One Tools</title>
 
 <style>
+
+/* =========================
+   RESET
+========================= */
+
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
     font-family:Arial,Helvetica,sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
 }
 
 body{
@@ -20,56 +30,71 @@ body{
     overflow-x:hidden;
 }
 
-/* Animated background */
+/* =========================
+   ANIMATED BACKGROUND
+========================= */
+
 body::before,
 body::after{
     content:"";
     position:fixed;
-    width:420px;
-    height:420px;
+    width:430px;
+    height:430px;
     border-radius:50%;
-    filter:blur(100px);
-    opacity:.35;
+    filter:blur(110px);
+    opacity:.30;
     z-index:-2;
-    animation:float 9s infinite alternate ease-in-out;
+    animation:float 10s infinite alternate ease-in-out;
 }
 
 body::before{
     background:#7c3cff;
-    top:-120px;
-    left:-100px;
+    top:-140px;
+    left:-120px;
 }
 
 body::after{
     background:#00d9ff;
-    right:-120px;
-    bottom:-120px;
+    right:-140px;
+    bottom:-140px;
     animation-delay:2s;
 }
 
 @keyframes float{
-    from{transform:translate(0,0) scale(1);}
-    to{transform:translate(80px,50px) scale(1.25);}
+
+    from{
+        transform:translate(0,0) scale(1);
+    }
+
+    to{
+        transform:translate(80px,50px) scale(1.25);
+    }
 }
 
-/* Header */
+/* =========================
+   HEADER
+========================= */
+
 header{
     width:100%;
-    padding:18px 7%;
+    padding:17px 7%;
     display:flex;
     align-items:center;
     justify-content:space-between;
+
     border-bottom:1px solid rgba(255,255,255,.08);
-    backdrop-filter:blur(20px);
-    background:rgba(5,5,12,.55);
+
+    backdrop-filter:blur(25px);
+    background:rgba(5,5,12,.65);
+
     position:sticky;
     top:0;
-    z-index:10;
+    z-index:100;
 }
 
 .logo{
-    font-size:25px;
-    font-weight:800;
+    font-size:26px;
+    font-weight:900;
     letter-spacing:.5px;
 }
 
@@ -79,7 +104,7 @@ header{
 
 nav{
     display:flex;
-    gap:25px;
+    gap:28px;
 }
 
 nav a{
@@ -90,79 +115,179 @@ nav a{
 }
 
 nav a:hover{
-    color:#fff;
+    color:#00d9ff;
 }
 
 .header-btn{
     padding:10px 18px;
     border-radius:12px;
-    border:1px solid rgba(255,255,255,.15);
-    background:rgba(255,255,255,.06);
+
+    border:1px solid rgba(0,217,255,.2);
+
+    background:rgba(0,217,255,.08);
+
     color:#fff;
+
     cursor:pointer;
+
+    transition:.3s;
 }
 
-/* Hero */
+.header-btn:hover{
+    background:#00d9ff;
+    color:#000;
+    transform:translateY(-2px);
+}
+
+/* =========================
+   HERO
+========================= */
+
 .hero{
     text-align:center;
-    padding:90px 20px 50px;
+    padding:90px 20px 55px;
 }
 
 .badge{
     display:inline-block;
-    padding:8px 15px;
+
+    padding:8px 16px;
+
     border-radius:30px;
+
     background:rgba(0,217,255,.08);
-    border:1px solid rgba(0,217,255,.2);
+
+    border:1px solid rgba(0,217,255,.25);
+
     color:#62eaff;
+
     font-size:13px;
-    margin-bottom:20px;
+
+    margin-bottom:22px;
+
+    box-shadow:0 0 25px rgba(0,217,255,.05);
 }
 
 .hero h1{
     font-size:clamp(42px,7vw,80px);
+
     line-height:1;
-    margin-bottom:20px;
-    background:linear-gradient(90deg,#fff,#8befff,#9c7bff,#fff);
+
+    margin-bottom:22px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #fff,
+            #8befff,
+            #9c7bff,
+            #fff
+        );
+
     -webkit-background-clip:text;
+
     color:transparent;
+
     background-size:250%;
+
     animation:shine 5s linear infinite;
 }
 
 @keyframes shine{
-    from{background-position:0%}
-    to{background-position:250%}
+
+    from{
+        background-position:0%;
+    }
+
+    to{
+        background-position:250%;
+    }
 }
 
 .hero p{
     max-width:650px;
+
     margin:auto;
+
     color:#9c9ca8;
+
     font-size:17px;
+
     line-height:1.7;
 }
 
-/* Search */
+/* =========================
+   LIVE SEARCH
+========================= */
+
+.search-wrapper{
+    width:min(720px,92%);
+
+    margin:38px auto 0;
+
+    position:relative;
+}
+
 .search-box{
-    width:min(700px,92%);
-    margin:35px auto 0;
+
     display:flex;
+
+    align-items:center;
+
     gap:10px;
-    padding:8px;
-    border:1px solid rgba(255,255,255,.12);
-    background:rgba(255,255,255,.05);
+
+    padding:8px 10px;
+
+    border:1px solid rgba(255,255,255,.13);
+
+    background:rgba(255,255,255,.055);
+
     border-radius:18px;
-    backdrop-filter:blur(20px);
+
+    backdrop-filter:blur(25px);
+
+    box-shadow:
+        0 15px 60px rgba(0,0,0,.25),
+        inset 0 0 30px rgba(255,255,255,.02);
+
+    transition:.3s;
+}
+
+.search-box:focus-within{
+
+    border-color:rgba(0,217,255,.5);
+
+    box-shadow:
+        0 0 35px rgba(0,217,255,.08),
+        inset 0 0 30px rgba(0,217,255,.03);
+}
+
+.search-icon{
+    width:45px;
+    height:45px;
+
+    display:grid;
+    place-items:center;
+
+    font-size:19px;
+
+    color:#00d9ff;
 }
 
 .search-box input{
+
     flex:1;
+
     background:transparent;
+
     border:0;
+
     outline:0;
+
     color:#fff;
-    padding:14px;
+
+    padding:14px 5px;
+
     font-size:15px;
 }
 
@@ -170,104 +295,295 @@ nav a:hover{
     color:#777;
 }
 
-.search-box button{
+.clear-search{
+
+    display:none;
+
+    width:35px;
+    height:35px;
+
     border:0;
-    border-radius:12px;
-    padding:0 23px;
-    background:linear-gradient(135deg,#7c3cff,#00bfe8);
-    color:white;
-    font-weight:bold;
+
+    border-radius:10px;
+
+    background:rgba(255,255,255,.08);
+
+    color:#aaa;
+
     cursor:pointer;
+
+    font-size:16px;
 }
 
-/* Main */
+.clear-search:hover{
+    color:#fff;
+}
+
+/* =========================
+   SEARCH STATUS
+========================= */
+
+.search-status{
+
+    margin-top:12px;
+
+    color:#777;
+
+    font-size:13px;
+
+    min-height:18px;
+}
+
+/* =========================
+   MAIN
+========================= */
+
 .container{
     width:min(1100px,92%);
+
     margin:auto;
 }
 
 .section-title{
-    margin:35px 0 20px;
+    margin:30px 0 20px;
 }
 
 .section-title h2{
-    font-size:25px;
+    font-size:26px;
 }
 
 .section-title p{
     color:#777;
+
     margin-top:7px;
+
+    font-size:14px;
 }
 
-/* Tools grid */
+/* =========================
+   TOOLS GRID
+========================= */
+
 .tools{
+
     display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:16px;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:17px;
 }
 
 .card{
-    padding:25px;
-    min-height:170px;
+
+    position:relative;
+
+    padding:24px;
+
+    min-height:175px;
+
     border:1px solid rgba(255,255,255,.09);
-    border-radius:20px;
-    background:linear-gradient(
-        145deg,
-        rgba(255,255,255,.075),
-        rgba(255,255,255,.025)
-    );
+
+    border-radius:21px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.075),
+            rgba(255,255,255,.025)
+        );
+
     backdrop-filter:blur(18px);
-    transition:.35s;
+
+    transition:
+        transform .35s,
+        border .35s,
+        box-shadow .35s;
+
     cursor:pointer;
+
+    overflow:hidden;
+}
+
+.card::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:120px;
+
+    height:120px;
+
+    border-radius:50%;
+
+    background:#00d9ff;
+
+    filter:blur(60px);
+
+    opacity:0;
+
+    top:-50px;
+
+    right:-50px;
+
+    transition:.4s;
 }
 
 .card:hover{
-    transform:translateY(-7px);
-    border-color:rgba(0,217,255,.4);
-    box-shadow:0 15px 50px rgba(0,217,255,.08);
+
+    transform:translateY(-8px);
+
+    border-color:
+        rgba(0,217,255,.45);
+
+    box-shadow:
+        0 18px 50px rgba(0,217,255,.09);
+}
+
+.card:hover::before{
+    opacity:.15;
 }
 
 .icon{
-    width:48px;
-    height:48px;
+
+    width:50px;
+    height:50px;
+
     display:grid;
     place-items:center;
-    border-radius:14px;
-    background:rgba(0,217,255,.1);
+
+    border-radius:15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(0,217,255,.13),
+            rgba(124,60,255,.13)
+        );
+
+    border:1px solid
+        rgba(255,255,255,.07);
+
     font-size:23px;
+
     margin-bottom:18px;
+
+    transition:.3s;
+}
+
+.card:hover .icon{
+
+    transform:scale(1.08);
+
+    box-shadow:
+        0 0 25px
+        rgba(0,217,255,.12);
 }
 
 .card h3{
+
     font-size:17px;
+
     margin-bottom:8px;
 }
 
 .card p{
+
     color:#888;
+
     font-size:13px;
+
     line-height:1.5;
 }
 
-/* Tool workspace */
-.workspace{
-    margin-top:35px;
+/* Search hidden cards */
+
+.card.hidden{
     display:none;
+}
+
+/* =========================
+   NO RESULTS
+========================= */
+
+.no-results{
+
+    display:none;
+
+    text-align:center;
+
+    padding:50px 20px;
+
+    color:#777;
+
+    border:1px dashed
+        rgba(255,255,255,.12);
+
+    border-radius:20px;
+
+    margin-top:5px;
+}
+
+.no-results.show{
+    display:block;
+}
+
+.no-results-icon{
+    font-size:35px;
+    margin-bottom:12px;
+}
+
+/* =========================
+   WORKSPACE
+========================= */
+
+.workspace{
+
+    margin-top:35px;
+
+    display:none;
+
     padding:25px;
-    border:1px solid rgba(255,255,255,.1);
+
+    border:1px solid
+        rgba(255,255,255,.1);
+
     border-radius:22px;
-    background:rgba(255,255,255,.045);
+
+    background:
+        rgba(255,255,255,.045);
+
     backdrop-filter:blur(20px);
+
+    animation:workspaceIn .35s ease;
 }
 
 .workspace.active{
     display:block;
 }
 
+@keyframes workspaceIn{
+
+    from{
+        opacity:0;
+        transform:translateY(15px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
 .workspace-header{
+
     display:flex;
+
     justify-content:space-between;
+
     align-items:center;
+
     margin-bottom:20px;
 }
 
@@ -276,77 +592,175 @@ nav a:hover{
 }
 
 .close-btn{
+
     border:0;
-    background:rgba(255,255,255,.08);
+
+    background:
+        rgba(255,255,255,.08);
+
     color:#fff;
+
     padding:8px 13px;
+
     border-radius:10px;
+
     cursor:pointer;
+
+    transition:.3s;
 }
 
+.close-btn:hover{
+    background:rgba(255,255,255,.15);
+}
+
+/* =========================
+   INPUTS
+========================= */
+
 textarea{
+
     width:100%;
+
     min-height:150px;
+
     resize:vertical;
+
     background:#090910;
+
     color:#fff;
-    border:1px solid rgba(255,255,255,.1);
+
+    border:1px solid
+        rgba(255,255,255,.1);
+
     border-radius:14px;
+
     padding:15px;
+
     outline:none;
 }
 
 .tool-input{
+
     width:100%;
+
     padding:14px;
+
     background:#090910;
+
     color:#fff;
-    border:1px solid rgba(255,255,255,.1);
+
+    border:1px solid
+        rgba(255,255,255,.1);
+
     border-radius:12px;
+
     outline:none;
+
     margin-bottom:12px;
 }
 
+.tool-input:focus,
+textarea:focus{
+
+    border-color:
+        rgba(0,217,255,.4);
+
+    box-shadow:
+        0 0 20px
+        rgba(0,217,255,.05);
+}
+
 .action{
+
     margin-top:12px;
+
     padding:12px 18px;
+
     border:0;
+
     border-radius:11px;
-    background:linear-gradient(135deg,#7c3cff,#00bfe8);
+
+    background:
+        linear-gradient(
+            135deg,
+            #7c3cff,
+            #00bfe8
+        );
+
     color:#fff;
+
     font-weight:bold;
+
     cursor:pointer;
+
+    transition:.3s;
+}
+
+.action:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 10px 30px
+        rgba(0,191,232,.15);
 }
 
 .result{
+
     margin-top:15px;
+
     padding:15px;
+
     border-radius:12px;
-    background:rgba(0,0,0,.3);
+
+    background:
+        rgba(0,0,0,.3);
+
     color:#aaa;
+
     min-height:45px;
+
+    word-break:break-word;
 }
 
-/* Footer */
+/* =========================
+   FOOTER
+========================= */
+
 footer{
+
     text-align:center;
+
     padding:60px 20px 30px;
+
     color:#666;
+
     font-size:13px;
 }
 
-/* Mobile */
+/* =========================
+   MOBILE
+========================= */
+
 @media(max-width:850px){
+
     .tools{
-        grid-template-columns:repeat(2,1fr);
+        grid-template-columns:
+            repeat(2,1fr);
     }
 
     nav{
         display:none;
     }
+
+    header{
+        padding-left:5%;
+        padding-right:5%;
+    }
 }
 
 @media(max-width:500px){
+
     .tools{
         grid-template-columns:1fr;
     }
@@ -355,243 +769,680 @@ footer{
         padding-top:60px;
     }
 
-    .search-box{
-        flex-direction:column;
+    .hero h1{
+        font-size:44px;
     }
 
-    .search-box button{
-        height:48px;
+    .search-box{
+        padding:7px;
+    }
+
+    .search-icon{
+        width:40px;
+    }
+
+    .header-btn{
+        padding:9px 13px;
+        font-size:12px;
     }
 }
+
 </style>
 </head>
 
+
 <body>
 
+
+<!-- =========================
+     HEADER
+========================= -->
+
 <header>
-    <div class="logo">Tool<span>ora</span></div>
+
+    <div class="logo">
+        Tool<span>ora</span>
+    </div>
 
     <nav>
-        <a href="#">Home</a>
-        <a href="#tools">Tools</a>
-        <a href="#about">About</a>
+
+        <a href="#">
+            Home
+        </a>
+
+        <a href="#tools">
+            Tools
+        </a>
+
+        <a href="#about">
+            About
+        </a>
+
     </nav>
 
-    <button class="header-btn" onclick="showMessage()">
+    <button
+        class="header-btn"
+        onclick="showMessage()"
+    >
         Get Started
     </button>
+
 </header>
+
+
+<!-- =========================
+     HERO
+========================= -->
 
 <section class="hero">
 
-    <div class="badge">⚡ Smart tools. One place.</div>
+    <div class="badge">
+        ⚡ Smart tools. One place.
+    </div>
 
-    <h1>Everything You Need.<br>In One ToolBox.</h1>
+    <h1>
+        Everything You Need.<br>
+        In One ToolBox.
+    </h1>
 
     <p>
         A modern collection of simple and powerful online tools
         designed to make everyday tasks faster and easier.
     </p>
 
-    <div class="search-box">
-        <input
-            id="search"
-            type="text"
-            placeholder="Search a tool..."
-            oninput="searchTools()"
-        >
-        <button onclick="searchTools()">Search</button>
+
+    <!-- LIVE SEARCH -->
+
+    <div class="search-wrapper">
+
+        <div class="search-box">
+
+            <div class="search-icon">
+                🔍
+            </div>
+
+            <input
+                id="search"
+                type="text"
+                autocomplete="off"
+                placeholder="Search tools..."
+                oninput="liveSearch()"
+            >
+
+            <button
+                class="clear-search"
+                id="clearSearch"
+                onclick="clearSearch()"
+            >
+                ✕
+            </button>
+
+        </div>
+
+        <div
+            class="search-status"
+            id="searchStatus"
+        ></div>
+
     </div>
 
 </section>
 
-<main class="container" id="tools">
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main
+    class="container"
+    id="tools"
+>
+
 
     <div class="section-title">
-        <h2>Popular Tools</h2>
-        <p>Choose a tool and start creating.</p>
+
+        <h2>
+            Popular Tools
+        </h2>
+
+        <p>
+            Choose a tool and start creating.
+        </p>
+
     </div>
+
+
+    <!-- TOOLS -->
 
     <div class="tools">
 
-        <div class="card" data-name="calculator" onclick="openTool('calculator')">
-            <div class="icon">🔢</div>
-            <h3>Calculator</h3>
-            <p>Perform quick mathematical calculations.</p>
+
+        <!-- Calculator -->
+
+        <div
+            class="card"
+            data-name="calculator math calculate"
+            onclick="openTool('calculator')"
+        >
+
+            <div class="icon">
+                🔢
+            </div>
+
+            <h3>
+                Calculator
+            </h3>
+
+            <p>
+                Perform quick mathematical calculations.
+            </p>
+
         </div>
 
-        <div class="card" data-name="qr code generator" onclick="openTool('qr')">
-            <div class="icon">🔳</div>
-            <h3>QR Generator</h3>
-            <p>Create a QR code from any text or link.</p>
+
+        <!-- QR -->
+
+        <div
+            class="card"
+            data-name="qr code generator"
+            onclick="openTool('qr')"
+        >
+
+            <div class="icon">
+                🔳
+            </div>
+
+            <h3>
+                QR Generator
+            </h3>
+
+            <p>
+                Create a QR code from any text or link.
+            </p>
+
         </div>
 
-        <div class="card" data-name="word counter text" onclick="openTool('text')">
-            <div class="icon">📝</div>
-            <h3>Text Counter</h3>
-            <p>Count words and characters instantly.</p>
+
+        <!-- Text -->
+
+        <div
+            class="card"
+            data-name="text word counter characters"
+            onclick="openTool('text')"
+        >
+
+            <div class="icon">
+                📝
+            </div>
+
+            <h3>
+                Text Counter
+            </h3>
+
+            <p>
+                Count words and characters instantly.
+            </p>
+
         </div>
 
-        <div class="card" data-name="password generator" onclick="openTool('password')">
-            <div class="icon">🔐</div>
-            <h3>Password Generator</h3>
-            <p>Generate strong random passwords.</p>
+
+        <!-- Password -->
+
+        <div
+            class="card"
+            data-name="password generator security"
+            onclick="openTool('password')"
+        >
+
+            <div class="icon">
+                🔐
+            </div>
+
+            <h3>
+                Password Generator
+            </h3>
+
+            <p>
+                Generate strong random passwords.
+            </p>
+
         </div>
 
-        <div class="card" data-name="unit converter" onclick="openTool('converter')">
-            <div class="icon">🔄</div>
-            <h3>Unit Converter</h3>
-            <p>Convert common measurement units.</p>
+
+        <!-- Converter -->
+
+        <div
+            class="card"
+            data-name="unit converter kilometer miles conversion"
+            onclick="openTool('converter')"
+        >
+
+            <div class="icon">
+                🔄
+            </div>
+
+            <h3>
+                Unit Converter
+            </h3>
+
+            <p>
+                Convert common measurement units.
+            </p>
+
         </div>
 
-        <div class="card" data-name="image tools" onclick="openTool('image')">
-            <div class="icon">🖼️</div>
-            <h3>Image Tools</h3>
-            <p>Open a workspace for image-related tools.</p>
+
+        <!-- Image -->
+
+        <div
+            class="card"
+            data-name="image photo picture tools"
+            onclick="openTool('image')"
+        >
+
+            <div class="icon">
+                🖼️
+            </div>
+
+            <h3>
+                Image Tools
+            </h3>
+
+            <p>
+                Open a workspace for image-related tools.
+            </p>
+
         </div>
 
-        <div class="card" data-name="pdf tools" onclick="openTool('pdf')">
-            <div class="icon">📄</div>
-            <h3>PDF Tools</h3>
-            <p>Open your PDF tools workspace.</p>
+
+        <!-- PDF -->
+
+        <div
+            class="card"
+            data-name="pdf document tools"
+            onclick="openTool('pdf')"
+        >
+
+            <div class="icon">
+                📄
+            </div>
+
+            <h3>
+                PDF Tools
+            </h3>
+
+            <p>
+                Open your PDF tools workspace.
+            </p>
+
         </div>
 
-        <div class="card" data-name="code tools editor" onclick="openTool('code')">
-            <div class="icon">💻</div>
-            <h3>Code Tools</h3>
-            <p>Write and preview simple HTML code.</p>
+
+        <!-- Code -->
+
+        <div
+            class="card"
+            data-name="code html editor playground developer"
+            onclick="openTool('code')"
+        >
+
+            <div class="icon">
+                💻
+            </div>
+
+            <h3>
+                Code Tools
+            </h3>
+
+            <p>
+                Write and preview simple HTML code.
+            </p>
+
         </div>
+
 
     </div>
 
-    <!-- Workspace -->
-    <section class="workspace" id="workspace">
+
+    <!-- NO RESULTS -->
+
+    <div
+        class="no-results"
+        id="noResults"
+    >
+
+        <div class="no-results-icon">
+            🔎
+        </div>
+
+        <h3>
+            No tools found
+        </h3>
+
+        <p style="margin-top:8px;">
+            Try searching for another tool.
+        </p>
+
+    </div>
+
+
+    <!-- =========================
+         WORKSPACE
+    ========================= -->
+
+    <section
+        class="workspace"
+        id="workspace"
+    >
 
         <div class="workspace-header">
-            <h2 id="toolTitle">Tool</h2>
-            <button class="close-btn" onclick="closeTool()">✕ Close</button>
+
+            <h2 id="toolTitle">
+                Tool
+            </h2>
+
+            <button
+                class="close-btn"
+                onclick="closeTool()"
+            >
+                ✕ Close
+            </button>
+
         </div>
 
         <div id="toolContent"></div>
 
     </section>
 
+
 </main>
 
+
+<!-- =========================
+     FOOTER
+========================= -->
+
 <footer id="about">
-    © 2026 Toolora · Simple tools for everyone.
+
+    © 2026 Toolora ·
+    Simple tools for everyone.
+
 </footer>
 
 
 <script>
 
+/* =========================
+   WELCOME
+========================= */
+
 function showMessage(){
-    alert("Welcome to Toolora!");
+
+    alert(
+        "Welcome to Toolora!"
+    );
+
 }
 
 
-/* Search */
-function searchTools(){
+/* =========================
+   LIVE SEARCH
+========================= */
+
+function liveSearch(){
+
+    const input =
+        document
+        .getElementById("search");
 
     const value =
-        document.getElementById("search")
-        .value
+        input.value
         .toLowerCase()
         .trim();
 
     const cards =
-        document.querySelectorAll(".card");
+        document
+        .querySelectorAll(".card");
+
+    const noResults =
+        document
+        .getElementById("noResults");
+
+    const status =
+        document
+        .getElementById("searchStatus");
+
+    const clear =
+        document
+        .getElementById("clearSearch");
+
+    let found = 0;
+
+
+    /* Clear button */
+
+    clear.style.display =
+        value ? "block" : "none";
+
+
+    /* Search cards */
 
     cards.forEach(card => {
 
         const name =
-            card.dataset.name.toLowerCase();
+            card.dataset.name
+            .toLowerCase();
 
-        card.style.display =
-            name.includes(value) ? "" : "none";
+        if(
+            value === "" ||
+            name.includes(value)
+        ){
+
+            card.classList.remove(
+                "hidden"
+            );
+
+            found++;
+
+        }else{
+
+            card.classList.add(
+                "hidden"
+            );
+
+        }
 
     });
+
+
+    /* No results */
+
+    if(
+        value !== "" &&
+        found === 0
+    ){
+
+        noResults.classList.add(
+            "show"
+        );
+
+        status.textContent =
+            "No matching tools";
+
+    }else{
+
+        noResults.classList.remove(
+            "show"
+        );
+
+        if(value !== ""){
+
+            status.textContent =
+                found +
+                (found === 1
+                    ? " tool found"
+                    : " tools found"
+                );
+
+        }else{
+
+            status.textContent = "";
+
+        }
+
+    }
+
 }
 
 
-/* Open tool */
+/* =========================
+   CLEAR SEARCH
+========================= */
+
+function clearSearch(){
+
+    document
+        .getElementById("search")
+        .value = "";
+
+    liveSearch();
+
+    document
+        .getElementById("search")
+        .focus();
+
+}
+
+
+/* =========================
+   OPEN TOOL
+========================= */
+
 function openTool(tool){
 
     const workspace =
-        document.getElementById("workspace");
+        document
+        .getElementById("workspace");
 
     const title =
-        document.getElementById("toolTitle");
+        document
+        .getElementById("toolTitle");
 
     const content =
-        document.getElementById("toolContent");
+        document
+        .getElementById("toolContent");
 
-    workspace.classList.add("active");
+
+    workspace.classList.add(
+        "active"
+    );
+
+
+    /* Calculator */
 
     if(tool === "calculator"){
 
-        title.textContent = "🔢 Calculator";
+        title.textContent =
+            "🔢 Calculator";
 
         content.innerHTML = `
+
             <input
                 class="tool-input"
                 id="calcInput"
                 placeholder="Example: 25 * 8 + 10"
             >
 
-            <button class="action" onclick="calculate()">
+            <button
+                class="action"
+                onclick="calculate()"
+            >
                 Calculate
             </button>
 
-            <div class="result" id="calcResult">
+            <div
+                class="result"
+                id="calcResult"
+            >
                 Result will appear here.
             </div>
+
         `;
+
     }
+
+
+    /* QR */
 
     if(tool === "qr"){
 
-        title.textContent = "🔳 QR Generator";
+        title.textContent =
+            "🔳 QR Generator";
 
         content.innerHTML = `
+
             <input
                 class="tool-input"
                 id="qrInput"
                 placeholder="Enter text or URL..."
             >
 
-            <button class="action" onclick="generateQR()">
+            <button
+                class="action"
+                onclick="generateQR()"
+            >
                 Generate QR
             </button>
 
-            <div class="result" id="qrResult">
+            <div
+                class="result"
+                id="qrResult"
+            >
                 QR preview will appear here.
             </div>
+
         `;
+
     }
+
+
+    /* Text Counter */
 
     if(tool === "text"){
 
-        title.textContent = "📝 Text Counter";
+        title.textContent =
+            "📝 Text Counter";
 
         content.innerHTML = `
+
             <textarea
                 id="textInput"
                 placeholder="Type or paste your text..."
                 oninput="countText()"
             ></textarea>
 
-            <div class="result" id="textResult">
-                Words: 0 | Characters: 0
+            <div
+                class="result"
+                id="textResult"
+            >
+                Words: 0 |
+                Characters: 0
             </div>
+
         `;
+
     }
+
+
+    /* Password */
 
     if(tool === "password"){
 
-        title.textContent = "🔐 Password Generator";
+        title.textContent =
+            "🔐 Password Generator";
 
         content.innerHTML = `
+
             <input
                 class="tool-input"
                 id="passLength"
@@ -601,21 +1452,34 @@ function openTool(tool){
                 value="16"
             >
 
-            <button class="action" onclick="generatePassword()">
+            <button
+                class="action"
+                onclick="generatePassword()"
+            >
                 Generate Password
             </button>
 
-            <div class="result" id="passResult">
+            <div
+                class="result"
+                id="passResult"
+            >
                 Your password will appear here.
             </div>
+
         `;
+
     }
+
+
+    /* Converter */
 
     if(tool === "converter"){
 
-        title.textContent = "🔄 Unit Converter";
+        title.textContent =
+            "🔄 Unit Converter";
 
         content.innerHTML = `
+
             <input
                 class="tool-input"
                 id="kmInput"
@@ -623,189 +1487,336 @@ function openTool(tool){
                 placeholder="Kilometers"
             >
 
-            <button class="action" onclick="convertKM()">
+            <button
+                class="action"
+                onclick="convertKM()"
+            >
                 Convert to Miles
             </button>
 
-            <div class="result" id="convertResult">
+            <div
+                class="result"
+                id="convertResult"
+            >
                 Result will appear here.
             </div>
+
         `;
+
     }
+
+
+    /* Image */
 
     if(tool === "image"){
 
-        title.textContent = "🖼️ Image Tools";
+        title.textContent =
+            "🖼️ Image Tools";
 
         content.innerHTML = `
-            <p style="color:#999;line-height:1.7">
+
+            <p
+                style="
+                color:#999;
+                line-height:1.7;
+                "
+            >
                 Image tools can be added here later:
                 resize, compress, crop, convert and more.
             </p>
+
         `;
+
     }
+
+
+    /* PDF */
 
     if(tool === "pdf"){
 
-        title.textContent = "📄 PDF Tools";
+        title.textContent =
+            "📄 PDF Tools";
 
         content.innerHTML = `
-            <p style="color:#999;line-height:1.7">
+
+            <p
+                style="
+                color:#999;
+                line-height:1.7;
+                "
+            >
                 PDF tools can be added here later:
                 merge, split, compress and convert.
             </p>
+
         `;
+
     }
+
+
+    /* Code */
 
     if(tool === "code"){
 
-        title.textContent = "💻 HTML Playground";
+        title.textContent =
+            "💻 HTML Playground";
 
         content.innerHTML = `
+
             <textarea
                 id="codeInput"
                 placeholder="Write HTML here..."
-            ><h1 style="color:#00d9ff">Hello Toolora!</h1>
-<p>This is my first webpage.</p></textarea>
+            ><h1 style="color:#00d9ff">
+Hello Toolora!
+</h1>
 
-            <button class="action" onclick="runCode()">
+<p>
+This is my first webpage.
+</p></textarea>
+
+            <button
+                class="action"
+                onclick="runCode()"
+            >
                 ▶ Run Code
             </button>
 
             <div
                 id="codePreview"
                 class="result"
-                style="background:white;color:#111;min-height:180px"
+                style="
+                    background:white;
+                    color:#111;
+                    min-height:180px;
+                "
             ></div>
+
         `;
+
     }
+
 
     workspace.scrollIntoView({
         behavior:"smooth",
         block:"start"
     });
+
 }
 
 
-/* Close */
+/* =========================
+   CLOSE TOOL
+========================= */
+
 function closeTool(){
 
     document
         .getElementById("workspace")
-        .classList.remove("active");
+        .classList.remove(
+            "active"
+        );
+
 }
 
 
-/* Calculator */
+/* =========================
+   CALCULATOR
+========================= */
+
 function calculate(){
 
     const input =
-        document.getElementById("calcInput").value;
+        document
+        .getElementById("calcInput")
+        .value;
 
     const result =
-        document.getElementById("calcResult");
+        document
+        .getElementById("calcResult");
+
 
     try{
 
-        if(!/^[0-9+\-*/().% ]+$/.test(input)){
+        if(
+            !/^[0-9+\-*/().% ]+$/
+            .test(input)
+        ){
+
             throw new Error();
+
         }
 
+
         result.textContent =
-            "Result: " + Function(
-                '"use strict"; return (' + input + ')'
+            "Result: " +
+            Function(
+                '"use strict"; return (' +
+                input +
+                ')'
             )();
 
-    }catch{
+    }
+
+    catch{
 
         result.textContent =
             "Please enter a valid calculation.";
 
     }
+
 }
 
 
-/* Text counter */
+/* =========================
+   TEXT COUNTER
+========================= */
+
 function countText(){
 
     const text =
-        document.getElementById("textInput").value;
+        document
+        .getElementById("textInput")
+        .value;
 
     const words =
         text.trim() === ""
         ? 0
-        : text.trim().split(/\s+/).length;
+        : text
+            .trim()
+            .split(/\s+/)
+            .length;
 
-    document.getElementById("textResult")
+
+    document
+        .getElementById("textResult")
         .textContent =
-        "Words: " + words +
-        " | Characters: " + text.length;
+            "Words: " +
+            words +
+            " | Characters: " +
+            text.length;
+
 }
 
 
-/* Password */
+/* =========================
+   PASSWORD
+========================= */
+
 function generatePassword(){
 
     let length =
-        Number(document.getElementById("passLength").value);
+        Number(
+            document
+            .getElementById("passLength")
+            .value
+        );
+
 
     length =
-        Math.max(4, Math.min(64, length));
+        Math.max(
+            4,
+            Math.min(
+                64,
+                length
+            )
+        );
+
 
     const chars =
         "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
         "abcdefghijklmnopqrstuvwxyz" +
         "0123456789!@#$%^&*";
 
+
     let password = "";
 
-    for(let i=0;i<length;i++){
+
+    for(
+        let i = 0;
+        i < length;
+        i++
+    ){
 
         password +=
-            chars[Math.floor(
-                Math.random() * chars.length
-            )];
+            chars[
+                Math.floor(
+                    Math.random() *
+                    chars.length
+                )
+            ];
 
     }
 
-    document.getElementById("passResult")
-        .textContent = password;
+
+    document
+        .getElementById("passResult")
+        .textContent =
+            password;
+
 }
 
 
-/* Unit converter */
+/* =========================
+   UNIT CONVERTER
+========================= */
+
 function convertKM(){
 
     const km =
-        Number(document.getElementById("kmInput").value);
+        Number(
+            document
+            .getElementById("kmInput")
+            .value
+        );
+
 
     if(isNaN(km)){
 
-        document.getElementById("convertResult")
+        document
+            .getElementById(
+                "convertResult"
+            )
             .textContent =
-            "Enter a number.";
+                "Enter a number.";
 
         return;
+
     }
 
-    const miles = km * 0.621371;
 
-    document.getElementById("convertResult")
+    const miles =
+        km * 0.621371;
+
+
+    document
+        .getElementById(
+            "convertResult"
+        )
         .textContent =
-        km + " km = " +
-        miles.toFixed(3) +
-        " miles";
+            km +
+            " km = " +
+            miles.toFixed(3) +
+            " miles";
+
 }
 
 
-/* QR */
+/* =========================
+   QR GENERATOR
+========================= */
+
 function generateQR(){
 
     const value =
-        document.getElementById("qrInput").value.trim();
+        document
+        .getElementById("qrInput")
+        .value
+        .trim();
 
     const result =
-        document.getElementById("qrResult");
+        document
+        .getElementById("qrResult");
+
 
     if(!value){
 
@@ -813,32 +1824,67 @@ function generateQR(){
             "Enter some text or a URL first.";
 
         return;
+
     }
 
+
     result.innerHTML = `
-        <div style="text-align:center">
-            <p style="margin-bottom:12px;color:#aaa">
-                QR preview
+
+        <div
+            style="
+            text-align:center;
+            "
+        >
+
+            <p
+                style="
+                margin-bottom:12px;
+                color:#aaa;
+                "
+            >
+                QR Preview
             </p>
 
             <img
-                src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(value)}"
+                src="
+                https://api.qrserver.com/v1/create-qr-code/
+                ?size=180x180
+                &data=${encodeURIComponent(value)}
+                "
                 alt="QR Code"
-                style="background:white;padding:10px;border-radius:10px"
+                style="
+                    background:white;
+                    padding:10px;
+                    border-radius:10px;
+                "
             >
+
         </div>
+
     `;
+
 }
 
 
-/* Code playground */
+/* =========================
+   CODE PLAYGROUND
+========================= */
+
 function runCode(){
 
     const code =
-        document.getElementById("codeInput").value;
+        document
+        .getElementById("codeInput")
+        .value;
 
-    document.getElementById("codePreview")
-        .innerHTML = code;
+
+    document
+        .getElementById(
+            "codePreview"
+        )
+        .innerHTML =
+            code;
+
 }
 
 </script>
